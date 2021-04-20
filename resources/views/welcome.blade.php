@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Warehouse Management System
                 </div>
 
                 <div class="links">
