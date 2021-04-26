@@ -7,7 +7,7 @@
           <ul class="menu-content">
             <li><a class="menu-item" href="#" data-i18n="nav.templates.vert.main">Master Part Name</a>
               <ul class="menu-content">
-                <li><a class="menu-item" href="#" data-i18n="nav.templates.vert.classic_menu">List Produk</a>
+                <li><a class="menu-item" href="{{ route('partname') }}" data-i18n="nav.templates.vert.classic_menu">List Part Name</a>
                 </li>
                 <li><a class="menu-item" href="#">Stok</a>
                 </li>
@@ -22,6 +22,8 @@
               </ul>
             </li>
           </ul>
+        </li>
+        <li class=" nav-item"><a href="#"><i class="la la-archive"></i><span class="menu-title" data-i18n="nav.dash.main">Shipping</span></a>
         </li>
       </ul>
     </div>

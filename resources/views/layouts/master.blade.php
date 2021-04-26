@@ -21,8 +21,13 @@
       
       <div class="content-body">
         <!-- Line Awesome section start -->
-        <section></section>
-        <!-- // Line Awesome section end -->
+
+        <!-- bagian judul halaman blog -->
+        <h3> @yield('title') </h3>
+        <!-- bagian konten blog -->
+        @yield('contents')
+
+        <!-- Line Awesome section end -->
       </div>
     </div>
   </div>

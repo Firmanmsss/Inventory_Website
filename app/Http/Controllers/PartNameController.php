@@ -14,7 +14,7 @@ class PartNameController extends Controller
      */
     public function index()
     {
-        //
+        return view('part_name.list');
     }
 
     /**
