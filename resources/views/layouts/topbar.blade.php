@@ -4,7 +4,7 @@
         <ul class="nav navbar-nav flex-row">
           <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
           <li class="nav-item mr-auto">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{{ route('home') }}">
               <img class="brand-logo" alt="modern admin logo" src="../../../app-assets/images/logo/logo.png">
               <h3 class="brand-text">WMS</h3>
             </a>
