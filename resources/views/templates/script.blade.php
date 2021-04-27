@@ -2,6 +2,8 @@
 <script src="../../../app-assets/vendors/js/vendors.min.js" type="text/javascript"></script>
 <!-- BEGIN VENDOR JS-->
 <!-- BEGIN PAGE VENDOR JS-->
+<script src="../../../app-assets/vendors/js/forms/icheck/icheck.min.js" type="text/javascript"></script>
+<script src="../../../app-assets/vendors/js/forms/validation/jqBootstrapValidation.js" type="text/javascript"></script>
 <script src="../../../app-assets/vendors/js/charts/chart.min.js" type="text/javascript"></script>
 <script src="../../../app-assets/vendors/js/charts/raphael-min.js" type="text/javascript"></script>
 <script src="../../../app-assets/vendors/js/charts/morris.min.js" type="text/javascript"></script>
@@ -23,6 +25,22 @@
 <script src="../../../app-assets/js/scripts/customizer.js" type="text/javascript"></script>
 <!-- END MODERN JS-->
 <!-- BEGIN PAGE LEVEL JS-->
+<script src="../../../app-assets/js/scripts/forms/form-login-register.js" type="text/javascript"></script>
 <script src="../../../app-assets/js/scripts/pages/dashboard-sales.js" type="text/javascript"></script>
 <script src="../../../app-assets/js/scripts/tables/datatables/datatable-advanced.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL JS-->
+
+
+<!-- BEGIN VENDOR JS-->
+
+<!-- BEGIN VENDOR JS-->
+<!-- BEGIN PAGE VENDOR JS-->
+
+<!-- END PAGE VENDOR JS-->
+<!-- BEGIN MODERN JS-->
+
+
+<!-- END MODERN JS-->
+<!-- BEGIN PAGE LEVEL JS-->
+
 <!-- END PAGE LEVEL JS-->
