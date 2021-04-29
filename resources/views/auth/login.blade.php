@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-
+@section('tab_bar', 'Login ')
 @section('content')
 
 <div class="app-content content">
@@ -72,13 +72,13 @@
 
                         {{-- <div class="col-md-6 col-12 text-center text-md-right"><a href="recover-password.html" class="card-link">Forgot Password?</a></div> --}}
 
-                        @if (Route::has('password.request'))
-                        <div class="col-md-6 col-12 text-center text-md-right"><a href="{{ route('password.request') }}" class="card-link">Forgot Password?</a></div>
+                        {{-- @if (Route::has('password.request'))
+                        <div class="col-md-6 col-12 text-center text-md-right"><a href="{{ route('password.request') }}" class="card-link">Forgot Password?</a></div> --}}
 
                             {{-- <a class="btn btn-link" href="{{ route('password.request') }}">
                                 {{ __('Forgot Your Password?') }}
                             </a> --}}
-                        @endif
+                        {{-- @endif --}}
 
                       </div>
                       {{-- <button type="submit" class="btn btn-info btn-lg btn-block"><i class="ft-unlock"></i> Login</button> --}}
@@ -94,15 +94,15 @@
                   <div class="">
                     {{-- <p class="float-sm-left text-center m-0"><a href="recover-password.html" class="card-link">Recover password</a></p> --}}
 
-                    @if (Route::has('password.request'))
-                    <p class="float-sm-left text-center m-0"><a href="{{ route('password.request') }}" class="card-link">Recover Password?</a></p>
+                    {{-- @if (Route::has('password.request'))
+                    <p class="float-sm-left text-center m-0"><a href="{{ route('password.request') }}" class="card-link">Recover Password?</a></p> --}}
 
                         {{-- <a class="btn btn-link" href="{{ route('password.request') }}">
                             {{ __('Forgot Your Password?') }}
                         </a> --}}
-                    @endif
+                    {{-- @endif --}}
 
-                    <p class="float-sm-right text-center m-0">New to WMS? <a href="register-simple.html" class="card-link">Sign Up</a></p>
+                    <p class="float-sm-right text-center m-0">New to WMS? <a href="{{ route('register') }}" class="card-link">Sign Up</a></p>
                   </div>
                 </div>
               </div>
