@@ -14,10 +14,10 @@ class PickingSeeder extends Seeder
     {
         DB::table('pickings')->insert([
             'id_good_issue' => '1',
-            'qty' => '10',
-            'location' => 'A001',
-            'created_at' => \Carbon\Carbon::now(),
-            'updated_at' => \Carbon\Carbon::now(),
+            'qty'           => '10',
+            'location'      => 'A001',
+            'created_at'    => \Carbon\Carbon::now(),
+            'updated_at'    => \Carbon\Carbon::now(),
         ]);
     }
 }
