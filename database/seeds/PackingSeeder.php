@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class SatuanSeeder extends Seeder
+class PackingSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,8 +12,12 @@ class SatuanSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('satuans')->insert([
-            'name'       => 'org',
+        DB::table('packings')->insert([
+            'id_picking' => '1',
+            'from' => 'Bogor',
+            'destination' => 'Jakarta',
+            'tanggal' => '2021-04-27',
+            'total_qty' => '50',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);

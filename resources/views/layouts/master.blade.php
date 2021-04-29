@@ -23,7 +23,25 @@
         <!-- Line Awesome section start -->
 
         <!-- bagian judul halaman blog -->
-        <h3> @yield('title') </h3>
+
+        <div class="content-header row">
+          <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
+            <h3 class="content-header-title mb-0 d-inline-block">@yield('title')</h3>
+            <div class="row breadcrumbs-top d-inline-block">
+              <div class="breadcrumb-wrapper col-12">
+                <ol class="breadcrumb">
+                  @yield('breadcumb')
+                </ol>
+              </div>
+            </div>
+          </div>
+          <div class="content-header-right col-md-6 col-12">
+            <div class="float-md-right">
+              @yield('btn_right')
+            </div>
+          </div>
+        </div>
+
         <!-- bagian konten blog -->
         @yield('contents')
 

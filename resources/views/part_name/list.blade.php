@@ -3,7 +3,21 @@
 
 <!-- isi bagian judul halaman -->
 @section('title', 'Part Name')
+@section('breadcumb')
 
+<li class="breadcrumb-item"><a href="index.html">Inventory</a>
+</li>
+<li class="breadcrumb-item"><a href="#">Part Name</a>
+</li>
+<li class="breadcrumb-item active">List Part Name
+</li>
+
+@endsection
+
+@section('btn_right')
+<button class="btn btn-success btn-glow px-2"
+type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tambah</button>
+@endsection
 <!-- isi bagian konten -->
 @section('contents')
 
@@ -23,9 +37,6 @@
           </div>
           <div class="card-content collapse show">
             <div class="card-body card-dashboard">
-              <p class="card-text">
-                  Keseluruhan List Part Name
-              </p>
               <table class="table table-striped table-bordered file-export">
                 <thead>
                   <tr>
@@ -34,6 +45,7 @@
                     <th>Stock</th>
                     <th>Buy Price / Unit</th>
                     <th>Sell Price / Unit</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -43,6 +55,11 @@
                     <td>10</td>
                     <td>Rp.50.000</td>
                     <td>Rp.60.000</td>
+                    <td>
+                      <button type="button" class="btn btn-info mr-1 mb-1"><i class="la la-info"></i> Detail</button>
+                      <button type="button" class="btn btn-warning mr-1 mb-1"><i class="la la-camera"></i> Edit</button>
+                      <button type="button" class="btn btn-danger mr-1 mb-1"><i class="la la-eye"></i> Delete</button>
+                    </td>
                   </tr>
                   <tr>
                     <td>Sayur</td>
@@ -50,6 +67,7 @@
                     <td>100</td>
                     <td>Rp.8.000</td>
                     <td>Rp.12.000</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td>Rokok</td>
@@ -57,6 +75,7 @@
                     <td>15</td>
                     <td>Rp.25.000</td>
                     <td>Rp.45.000</td>
+                    <td></td>
                   </tr>
                 </tbody>
                 <tfoot>
@@ -66,6 +85,7 @@
                     <th>Stock</th>
                     <th>Buy Price / Unit</th>
                     <th>Sell Price / Unit</th>
+                    <th>Action</th>
                   </tr>
                 </tfoot>
               </table>

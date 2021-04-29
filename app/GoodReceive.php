@@ -8,5 +8,5 @@ class GoodReceive extends Model
 {
     protected $table = 'good_receives';
 
-    protected $fillable = ['id_cust','id_partname','tgl','checker','pic','qty_in','location','qty_loc'];
+    protected $fillable = ['id_cust','id_partname','tanggal','checker','pic','qty_in','location','qty_loc'];
 }

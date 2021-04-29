@@ -3,8 +3,7 @@
 
 <!-- isi bagian judul halaman -->
 @section('title', 'Dashboard ')
- 
- 
+
 <!-- isi bagian konten -->
 @section('contents')
  
