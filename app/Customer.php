@@ -18,7 +18,7 @@ class Customer extends Model
         return $this->hasOne('App\GoodIssue');
     }
 
-    public function partname(){
-        return $this->hasMany('App\Part_Name');
-    }
+    // public function partname(){
+    //     return $this->hasMany(Part_Name::class,'id_partname', 'id' );
+    // }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +22,8 @@ Auth::routes();
 
 Route::get('/dashboard', 'HomeController@index')->name('home');
 
-Route::get('/part-name', 'PartNameController@index')->name('partname');
+Route::resource('partname', 'PartNameController');
+
+Route::resource('goodreceipt','GoodReceiveController');
+
+Route::resource('customer', 'CustomerController');

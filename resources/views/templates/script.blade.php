@@ -29,18 +29,3 @@
 <script src="../../../app-assets/js/scripts/pages/dashboard-sales.js" type="text/javascript"></script>
 <script src="../../../app-assets/js/scripts/tables/datatables/datatable-advanced.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL JS-->
-
-
-<!-- BEGIN VENDOR JS-->
-
-<!-- BEGIN VENDOR JS-->
-<!-- BEGIN PAGE VENDOR JS-->
-
-<!-- END PAGE VENDOR JS-->
-<!-- BEGIN MODERN JS-->
-
-
-<!-- END MODERN JS-->
-<!-- BEGIN PAGE LEVEL JS-->
-
-<!-- END PAGE LEVEL JS-->

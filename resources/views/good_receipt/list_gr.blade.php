@@ -2,17 +2,17 @@
 @extends('layouts.master')
 
 <!-- isi bagian judul halaman -->
-@section('title', 'Part Name')
+@section('title', 'Good Receipt')
 @section('breadcumb')
 
-<li class="breadcrumb-item active">List Part Name
+<li class="breadcrumb-item active">List Good Receipt
 </li>
 
 @endsection
 
 @section('btn_right')
 <button class="btn btn-success btn-glow px-2"
-type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.location.href='{{ route('partname.create') }}'" aria-expanded="false">Tambah</button>
+type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tambah</button>
 @endsection
 <!-- isi bagian konten -->
 @section('contents')
@@ -22,7 +22,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title">List Part Name</h4>
+            <h4 class="card-title">List Good Receipt</h4>
             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
             <div class="heading-elements">
               <ul class="list-inline mb-0">
@@ -32,7 +32,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
           </div>
           <div class="card-content collapse show">
             <div class="card-body card-dashboard">
-              <table class="table table-striped table-bordered file-export" id="ReadTable">
+              <table class="table table-striped table-bordered file-export" id="example">
                 <thead>
                   <tr>
                     <th>Part Name</th>
@@ -41,8 +41,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody>
-                </tbody>
+                <tbody></tbody>
                 <tfoot>
                   <tr>
                     <th>Part Name</th>
@@ -59,7 +58,9 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
     </div>
   </section>
 @endsection
+
 @push('addon-script')
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.js"></script>
 <script src="{{ asset('/app-assets/vendors/js/tables/datatable/datatables.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/app-assets/vendors/js/tables/datatable/dataTables.buttons.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/app-assets/vendors/js/tables/datatable/buttons.bootstrap4.min.js') }}" type="text/javascript"></script>
@@ -74,14 +75,14 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
 <script src="{{ asset('/app-assets/js/scripts/tables/datatables-extensions/datatable-button/datatable-html5.js') }}" type="text/javascript"></script>
 
 <script>
-  $(document).ready(function(){
-    $('#ReadTable').dataTable().fnDestroy();
+    $(document).ready(function(){
+        $('#example').dataTable().fnDestroy();
 
-    $('#ReadTable').DataTable({
-      processing: true,
-      serverSide: true,
-      ordering: true,
-      dom: 'Bfrtip',
+        $('#example').DataTable( {
+        processing: true,
+        serverSide: true,
+        ordering: true,
+        dom: 'Bfrtip',
         buttons: [
           {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
           {extend:'csv'},
@@ -96,22 +97,22 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
             titleAttr: 'Refresh'
           },
         ],
-      ajax: {
-          url: '{!! url()->current() !!}',
-      },
-      columns: [
-          { data: 'name', name: 'name'},
-          { data: 'satuan', name: 'satuan' },
-          { data: 'stok', name: 'stok' },
-          {
-              data: 'action',
-              name: 'action',
-              orderable: false,
-              searchable: false
-          },
-      ],
-      "order": [[ 0, 'desc' ], [ 1, 'desc']]
+        ajax: {
+            url: '{!! url()->current() !!}',
+        },
+        columns: [
+            { data: 'checker', name: 'checker'},
+            { data: 'qty_in', name: 'qty_in' },
+            { data: 'location', name: 'location' },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: false,
+                searchable: false
+            },
+        ],
+        "order": [[ 0, 'desc' ], [ 1, 'desc']]
     });
-  });
+    });
 </script>
 @endpush

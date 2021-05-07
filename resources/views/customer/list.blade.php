@@ -2,17 +2,17 @@
 @extends('layouts.master')
 
 <!-- isi bagian judul halaman -->
-@section('title', 'Part Name')
+@section('title', 'Customer')
 @section('breadcumb')
 
-<li class="breadcrumb-item active">List Part Name
+<li class="breadcrumb-item active">List Customer
 </li>
 
 @endsection
 
 @section('btn_right')
 <button class="btn btn-success btn-glow px-2"
-type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.location.href='{{ route('partname.create') }}'" aria-expanded="false">Tambah</button>
+type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.location.href='{{ route('customer.create') }}'" aria-expanded="false">Tambah</button>
 @endsection
 <!-- isi bagian konten -->
 @section('contents')
@@ -22,7 +22,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title">List Part Name</h4>
+            <h4 class="card-title">List Customer</h4>
             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
             <div class="heading-elements">
               <ul class="list-inline mb-0">
@@ -35,9 +35,9 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
               <table class="table table-striped table-bordered file-export" id="ReadTable">
                 <thead>
                   <tr>
-                    <th>Part Name</th>
-                    <th>Unit</th>
-                    <th>Stock</th>
+                    <th>Name</th>
+                    <th>No. Telp</th>
+                    <th>Alamat</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -45,9 +45,9 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Part Name</th>
-                    <th>Unit</th>
-                    <th>Stock</th>
+                    <th>Name</th>
+                    <th>No. Telp</th>
+                    <th>Alamat</th>
                     <th>Action</th>
                   </tr>
                 </tfoot>
@@ -101,8 +101,8 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
       },
       columns: [
           { data: 'name', name: 'name'},
-          { data: 'satuan', name: 'satuan' },
-          { data: 'stok', name: 'stok' },
+          { data: 'no_telp', name: 'no_telp' },
+          { data: 'alamat', name: 'alamat' },
           {
               data: 'action',
               name: 'action',

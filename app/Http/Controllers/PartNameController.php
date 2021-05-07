@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\Part_Name;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class PartNameController extends Controller
 {
@@ -14,6 +17,38 @@ class PartNameController extends Controller
      */
     public function index()
     {
+        if (request()->ajax()) {
+            $query = Part_Name::query();
+            // dd($query->name);
+            return DataTables::of($query)
+                ->addColumn('action', function ($item) {
+                    return '
+                        <div class="btn-group">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle mr-1 mb-1" 
+                                    type="button" id="action' .  $item->id . '"
+                                        data-toggle="dropdown" 
+                                        aria-haspopup="true"
+                                        aria-expanded="false">
+                                        Action
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="action' .  $item->id . '">
+                                    <a class="dropdown-item" href="' . route('partname.edit', $item->id) . '">
+                                        Edit
+                                    </a>
+                                    <form action="' . route('partname.destroy', $item->id) . '" method="POST">
+                                        ' . method_field('delete') . csrf_field() . '
+                                        <button type="submit" class="dropdown-item text-danger">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                    </div>';
+                })
+                ->rawColumns(['action'])
+                ->make();
+        }
         return view('part_name.list');
     }
 
@@ -24,7 +59,8 @@ class PartNameController extends Controller
      */
     public function create()
     {
-        //
+        $customers = Customer::all();
+        return view('part_name.create', compact('customers'));
     }
 
     /**
@@ -55,9 +91,11 @@ class PartNameController extends Controller
      * @param  \App\Part_Name  $part_Name
      * @return \Illuminate\Http\Response
      */
-    public function edit(Part_Name $part_Name)
+    public function edit($id)
     {
-        //
+        $item = Part_Name::with([
+
+        ])->findOrFail($id);
     }
 
     /**
@@ -67,9 +105,44 @@ class PartNameController extends Controller
      * @param  \App\Part_Name  $part_Name
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Part_Name $part_Name)
+    public function update(Request $request, $id)
     {
-        //
+        // $item = Part_Name::findOrFail($id);
+
+        $item = Part_Name::with([
+            'customer',
+        ])->findOrFail($id);
+
+        $this->validate($request, [
+            'name'    => 'required|min:3',
+            'no_telp' => 'required|min:10 max:12',
+            'alamat'  => 'required|min:3'
+        ]);
+
+        DB:: beginTransaction();
+        
+        try{
+
+            $item->name    = $request->name;
+            $item->no_telp = $request->no_telp;
+            $item->Alamat  = $request->alamat;
+            // $item->slug = Str::slug($request->name);
+
+            $item->update();
+
+        }
+        catch(\Exception $e){
+            DB:: rollBack();
+            return redirect()->route('partname.edit')->withInput()->with('error-msg', 
+            // $e->getMessage() = digunakan untuk pengecekan eror
+            'Data Gagal di edit');
+        }
+
+        DB:: commit();
+
+        return redirect()->route('partname.index')
+        // ->withInput() jika berhasil input tampil kembali
+        ->with('success-msg', 'Data berhasil di edit data');
     }
 
     /**
