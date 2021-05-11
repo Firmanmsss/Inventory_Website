@@ -23,7 +23,7 @@
               <ul class="menu-content">
                 <li><a class="menu-item" href="{{ route('customer.index') }}" data-i18n="nav.templates.horz.classic">Data</a>
                 </li>
-                <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.top_icon">Add New</a>
+                <li><a class="menu-item" href="{{ route('customer.create') }}" data-i18n="nav.templates.horz.top_icon">Add New</a>
                 </li>
               </ul>
             </li>

@@ -9,7 +9,7 @@
 @section('title', 'Part Name')
 @section('breadcumb')
 
-<li class="breadcrumb-item active">Create Part Name
+<li class="breadcrumb-item active">Edit Part Name
 </li>
 
 @endsection
@@ -20,7 +20,7 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title" id="basic-layout-form-center">Create</h4>
+            <h4 class="card-title" id="basic-layout-form-center">Edit</h4>
             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
             <div class="heading-elements">
               <ul class="list-inline mb-0">
@@ -42,21 +42,22 @@
                     </ul>
                 </div>
               @endif
-              <form class="form" novalidate action="{{ route('partname.store') }}" method="POST" enctype="multipart/form-data">
+              <form class="form" novalidate action="{{ route('partname.update',$item->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="form-body">
                   <h4 class="form-section"><i class="ft-box"></i> Data Part Name</h4>
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="partname">Part Name</label>
-                        <input type="text" id="partname" class="form-control" placeholder="Part Name" name="partname">
+                        <input type="text" id="partname" value="{{ $item->name }}" class="form-control" placeholder="Part Name" name="partname">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="unit">Unit</label>
-                        <input type="text" id="unit" class="form-control" placeholder="Unit" name="unit">
+                        <input type="text" id="unit" value="{{ $item->satuan }}" class="form-control" placeholder="Unit" name="unit">
                       </div>
                     </div>
                   </div>
@@ -64,7 +65,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="std_qty">Std. Qty</label>
-                        <input type="text" id="std_qty" class="form-control" placeholder="Std. Qty" name="std_qty">
+                        <input type="text" id="std_qty" value="{{ $item->std_qty }}" class="form-control" placeholder="Std. Qty" name="std_qty">
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -86,9 +87,15 @@
                       <div class="form-group">
                         <h5>Foto</h5>
                         <div class="controls">
-                          <input type="file" name="foto" class="form-control dropify" required>
+                          <input type="file" name="foto" value="{{ $item->foto }}" class="form-control dropify" required>
                         </div>
                       </div>
+                      <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                        <a href="{{ Storage::url('assets/partname/'.$item->foto ?? '') }}" itemprop="contentUrl" data-size="480x360">
+                          <img class="img-thumbnail img-fluid w-50" src="{{ Storage::url('assets/partname/'.$item->foto ?? '') }}"
+                          itemprop="thumbnail" alt="Image description" />
+                        </a>
+                      </figure>
                     </div>
                   </div>
                 </div>

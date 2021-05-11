@@ -14,7 +14,7 @@
                 <div class="card-header border-0">
                   <div class="card-title text-center">
                     <div class="p-1">
-                      {{-- <img src="../../../app-assets/images/logo/logo-dark.png" alt="branding logo"> --}}
+                      <img src="../../../app-assets/images/logo/180_1.png" alt="Logo WMS">
                       <h2>Warehouse Management System</h2>
                       <h4>WMS</h4>
                     </div>

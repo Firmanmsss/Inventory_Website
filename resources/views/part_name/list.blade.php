@@ -35,6 +35,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
               <table class="table table-striped table-bordered file-export" id="ReadTable">
                 <thead>
                   <tr>
+                    <th>Foto</th>
                     <th>Part Name</th>
                     <th>Unit</th>
                     <th>Stock</th>
@@ -42,9 +43,11 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
                   </tr>
                 </thead>
                 <tbody>
+                  
                 </tbody>
                 <tfoot>
                   <tr>
+                    <th>Foto</th>
                     <th>Part Name</th>
                     <th>Unit</th>
                     <th>Stock</th>
@@ -100,6 +103,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
           url: '{!! url()->current() !!}',
       },
       columns: [
+          { data: 'foto', name: 'foto' },
           { data: 'name', name: 'name'},
           { data: 'satuan', name: 'satuan' },
           { data: 'stok', name: 'stok' },

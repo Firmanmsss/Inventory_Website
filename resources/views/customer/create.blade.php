@@ -37,7 +37,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="partname" class="form-control" placeholder="Part Name" name="name">
+                        <input type="text" id="partname" class="form-control" placeholder="Name" name="name">
                       </div>
                     </div>
                     <div class="col-md-12">
@@ -55,7 +55,7 @@
                   </div>
                 </div>
                 <div class="form-actions">
-                  <button type="button" class="btn btn-warning mr-1" onclick="window.location.href='{{ route('partname.index') }}'">
+                  <button type="button" class="btn btn-warning mr-1" onclick="window.location.href='{{ route('customer.index') }}'">
                     <i class="ft-x"></i> Cancel
                   </button>
                   <button type="submit" class="btn btn-primary">

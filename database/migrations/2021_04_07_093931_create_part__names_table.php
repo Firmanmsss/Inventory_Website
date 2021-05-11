@@ -18,6 +18,7 @@ class CreatePartNamesTable extends Migration
             $table->string('id_cust');
             $table->string('name');
             $table->string('satuan');
+            $table->text('foto')->nullable();
             $table->double('std_qty',10,2)->default(0.00);
             $table->double('stok',10,2)->default(0.00);
             $table->timestamps();
