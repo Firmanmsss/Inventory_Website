@@ -50,8 +50,8 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="partname">Part Name</label>
-                        <input type="text" id="partname" value="{{ $item->name }}" class="form-control" placeholder="Part Name" name="partname">
+                        <label for="name">Part Name</label>
+                        <input type="text" id="name" value="{{ $item->name }}" class="form-control" placeholder="Part Name" name="name">
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -72,8 +72,8 @@
                       <div class="form-group">
                         <label for="id_cust">Customer</label>
                         <select name="id_cust" id="select" required class="select2 form-control">
-                          <option value="none" selected="" disabled="">Choose Customer</option>
-                          {{-- <option value="2">Firman</option> --}}
+                          {{-- <option value="none" selected="">Choose Customer</option> --}}
+                          <option value="{{ $item->id_cust }}" disabled="" selected="" >{{ $item->customer->name }}</option>
                           @foreach ($customers as $cst)
                           <option value="{{ $cst->id }}" {{ old('id_cust') === ''. $cst->id .'' ? 'selected' : '' }}>{{ $cst->name }}</option>
                             {{-- <option value="{{ $cst->id }}">{{ $cst->name }}</option> --}}
@@ -90,12 +90,12 @@
                           <input type="file" name="foto" value="{{ $item->foto }}" class="form-control dropify" required>
                         </div>
                       </div>
-                      <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                        <a href="{{ Storage::url('assets/partname/'.$item->foto ?? '') }}" itemprop="contentUrl" data-size="480x360">
-                          <img class="img-thumbnail img-fluid w-50" src="{{ Storage::url('assets/partname/'.$item->foto ?? '') }}"
-                          itemprop="thumbnail" alt="Image description" />
-                        </a>
-                      </figure>
+                         <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                          <a href="{{ Storage::url('assets/partname/'.$item->foto ?? '') }}" itemprop="contentUrl" data-size="480x360">
+                            <img class="img-thumbnail img-fluid w-50" src="{{ Storage::url('assets/partname/'.$item->foto ?? '') }}"
+                            itemprop="thumbnail" alt="Image description" />
+                          </a>
+                        </figure>
                     </div>
                   </div>
                 </div>

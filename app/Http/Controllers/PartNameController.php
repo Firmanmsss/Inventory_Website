@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use App\Part_Name;
-use Illuminate\Contracts\Validation\Rule;
+// use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -171,7 +172,7 @@ class PartNameController extends Controller
         ])->findOrFail($id);
 
         $this->validate($request, [
-            'partname' => ['required','min:3',Rule::unique('part__names')->ignore($partname->id)],
+            'name' => ['required','min:3',Rule::unique('part__names')->ignore($partname->id)],
             'unit'     => 'required|min:2',
             'std_qty'  => 'required|integer',
             'foto'     => 'image|mimes:png,jpg',
@@ -194,27 +195,27 @@ class PartNameController extends Controller
             }
             
             $partname->id_cust = $request->id_cust;
-            $partname->name    = $request->partname;
+            $partname->name    = $request->name;
             $partname->satuan  = $request->unit;
             $partname->std_qty = $request->std_qty;
             $partname->stok    = '1';
 
-            $partname->save();
+            $partname->update();
             // dd($partname);
 
         }
         catch(\Exception $e){
             DB:: rollBack();
-            return redirect()->route('partname.create')->withInput()->with('error-msg', 
-            $e->getMessage());
-            // 'Data Gagal disimpan');
+            return redirect()->route('partname.edit')->withInput()->with('error-msg', 
+            // $e->getMessage());
+            'Data Gagal di Update');
         }
 
         DB:: commit();
 
         return redirect()->route('partname.index')
         // ->withInput() jika berhasil input tampil kembali
-        ->with('success-msg', 'Data berhasil disimpan data');
+        ->with('success-msg', 'Data berhasil di Update');
     }
 
     /**
@@ -223,8 +224,11 @@ class PartNameController extends Controller
      * @param  \App\Part_Name  $part_Name
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Part_Name $part_Name)
+    public function destroy($id)
     {
-        //
+        $item = Part_Name::findorFail($id);
+        $item->delete();
+
+        return redirect()->route('partname.index');
     }
 }
