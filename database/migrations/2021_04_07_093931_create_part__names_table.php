@@ -16,6 +16,8 @@ class CreatePartNamesTable extends Migration
         Schema::create('part__names', function (Blueprint $table) {
             $table->id();
             $table->string('id_cust');
+            $table->string('id_category');
+            $table->string('id_unit');
             $table->string('name');
             $table->string('satuan');
             $table->text('foto')->nullable();

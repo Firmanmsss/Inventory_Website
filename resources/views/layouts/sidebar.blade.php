@@ -15,6 +15,10 @@
             </li>
             <li><a class="menu-item" href="#" data-i18n="nav.templates.vert.main">Master Part Name</a>
               <ul class="menu-content">
+                <li><a class="menu-item" href="{{ route('satuan.index') }}" data-i18n="nav.templates.vert.classic_menu">Unit</a>
+                </li>
+                <li><a class="menu-item" href="{{ route('category.index') }}" data-i18n="nav.templates.vert.classic_menu">Category</a>
+                </li>
                 <li><a class="menu-item" href="{{ route('partname.index') }}" data-i18n="nav.templates.vert.classic_menu">List Part Name</a>
                 </li>
               </ul>

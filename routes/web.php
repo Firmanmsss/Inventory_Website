@@ -27,3 +27,7 @@ Route::resource('partname', 'PartNameController');
 Route::resource('goodreceipt','GoodReceiveController');
 
 Route::resource('customer', 'CustomerController');
+
+Route::resource('satuan','SatuanController');
+
+Route::resource('category', 'CategoryController');

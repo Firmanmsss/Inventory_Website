@@ -55,8 +55,15 @@
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="unit">Unit</label>
-                        <input type="text" id="unit" class="form-control" placeholder="Unit" name="unit">
+                        <label for="id_cust">Customer</label>
+                        <select name="id_cust" id="select" required class="select2 form-control">
+                          <option value="none" selected="" disabled="">Choose Unit</option>
+                          {{-- <option value="2">Firman</option> --}}
+                          @foreach ($satuan as $unt)
+                          <option value="{{ $unt->id }}" {{ old('id') === ''. $unt->id .'' ? 'selected' : '' }}>{{ $unt->name }}</option>
+                            {{-- <option value="{{ $cst->id }}">{{ $cst->name }}</option> --}}
+                          @endforeach
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -75,6 +82,21 @@
                           {{-- <option value="2">Firman</option> --}}
                           @foreach ($customers as $cst)
                           <option value="{{ $cst->id }}" {{ old('id_cust') === ''. $cst->id .'' ? 'selected' : '' }}>{{ $cst->name }}</option>
+                            {{-- <option value="{{ $cst->id }}">{{ $cst->name }}</option> --}}
+                          @endforeach
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="id_cust">Customer</label>
+                        <select name="id_cust" id="select" required class="select2 form-control">
+                          <option value="none" selected="" disabled="">Choose Category</option>
+                          {{-- <option value="2">Firman</option> --}}
+                          @foreach ($category as $ctg)
+                          <option value="{{ $ctg->id }}" {{ old('id') === ''. $ctg->id .'' ? 'selected' : '' }}>{{ $ctg->category_name }}</option>
                             {{-- <option value="{{ $cst->id }}">{{ $cst->name }}</option> --}}
                           @endforeach
                         </select>

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Customer;
 use App\Part_Name;
+use App\Satuan;
 // use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
@@ -66,7 +68,9 @@ class PartNameController extends Controller
     public function create()
     {
         $customers = Customer::all();
-        return view('part_name.create', compact('customers'));
+        $satuan = Satuan::all();
+        $category = Category::all();
+        return view('part_name.create', compact('customers','satuan','category'));
     }
 
     /**
@@ -146,8 +150,10 @@ class PartNameController extends Controller
      */
     public function edit($id)
     {
-        $item = Part_Name::with(['customer'])->findOrFail($id);
+        $item = Part_Name::with(['customer','satuan','category'])->findOrFail($id);
         $customers = Customer::all();
+        $satuan = Satuan::all();
+        $category = Category::all();
 
         return view('part_name.edit',
         [

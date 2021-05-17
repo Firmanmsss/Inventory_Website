@@ -5,10 +5,10 @@
 
 @endpush
 <!-- isi bagian judul halaman -->
-@section('title', 'Customer')
+@section('title', 'Category')
 @section('breadcumb')
 
-<li class="breadcrumb-item active">Edit Customer
+<li class="breadcrumb-item active">Edit Category
 </li>
 
 @endsection
@@ -29,34 +29,22 @@
           </div>
           <div class="card-content collapse show">
             <div class="card-body">
-              <form class="form" novalidate action="{{ route('customer.update',$item->id) }}" method="POST">
+              <form class="form" novalidate action="{{ route('category.update',$item->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="form-body">
-                  <h4 class="form-section"><i class="ft-user"></i> Data Customer</h4>
+                  <h4 class="form-section"><i class="ft-user"></i> Data Category</h4>
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="partname" value="{{ $item->name }}" class="form-control" placeholder="Part Name" name="name">
+                        <input type="text" id="name" value="{{ $item->category_name }}" class="form-control" placeholder="Name" name="name">
                       </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label for="no_telp">No. Telp</label>
-                        <input type="text" id="no_telp" value="{{ $item->no_telp }}" class="form-control" placeholder="No. Telp" name="no_telp">
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="alamat">Alamat</label>
-                            <textarea id="alamat" rows="5" class="form-control" name="alamat" placeholder="Alamat">{!! $item->alamat !!}</textarea>
-                        </div>
                     </div>
                   </div>
                 </div>
                 <div class="form-actions">
-                  <button type="button" class="btn btn-warning mr-1" onclick="window.location.href='{{ route('customer.index') }}'">
+                  <button type="button" class="btn btn-warning mr-1" onclick="window.location.href='{{ route('category.index') }}'">
                     <i class="ft-x"></i> Cancel
                   </button>
                   <button type="submit" class="btn btn-primary">

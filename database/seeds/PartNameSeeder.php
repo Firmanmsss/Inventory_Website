@@ -13,13 +13,15 @@ class PartNameSeeder extends Seeder
     public function run()
     {
         DB::table('part__names')->insert([
-            'id_cust'    => '1',
-            'name'       => 'firman',
-            'satuan'     => 'org',
-            'std_qty'    => '1',
-            'stok'       => '1',
-            'created_at' => \Carbon\Carbon::now(),
-            'updated_at' => \Carbon\Carbon::now(),
+            'id_cust'     => '1',
+            'id_category' => '1',
+            'id_unit'     => '1',
+            'name'        => 'firman',
+            'satuan'      => 'org',
+            'std_qty'     => '1',
+            'stok'        => '1',
+            'created_at'  => \Carbon\Carbon::now(),
+            'updated_at'  => \Carbon\Carbon::now(),
         ]);
     }
 }

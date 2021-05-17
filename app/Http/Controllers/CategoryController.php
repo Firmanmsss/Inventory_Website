@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Satuan;
+use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
-class SatuanController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class SatuanController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Satuan::query();
+            $query = Category::query();
             // dd($query->name);
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
@@ -32,10 +32,10 @@ class SatuanController extends Controller
                                         Action
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="action' .  $item->id . '">
-                                    <a class="dropdown-item" href="' . route('satuan.edit', $item->id) . '">
+                                    <a class="dropdown-item" href="' . route('category.edit', $item->id) . '">
                                         Edit
                                     </a>
-                                    <form action="' . route('satuan.destroy', $item->id) . '" method="POST">
+                                    <form action="' . route('category.destroy', $item->id) . '" method="POST">
                                         ' . method_field('delete') . csrf_field() . '
                                         <button type="submit" class="dropdown-item text-danger">
                                             Delete
@@ -48,8 +48,7 @@ class SatuanController extends Controller
                 ->rawColumns(['action'])
                 ->make();
         }
-
-        return view('unit.list');
+        return view('category.list');
     }
 
     /**
@@ -59,7 +58,7 @@ class SatuanController extends Controller
      */
     public function create()
     {
-        return view('unit.create');
+        return view('category.create');
     }
 
     /**
@@ -70,27 +69,27 @@ class SatuanController extends Controller
      */
     public function store(Request $request)
     {
-        DB::beginTransaction();
+        DB:: beginTransaction();
 
         try {
-            $satuan = new Satuan();
+            $category = new Category();
 
-            $satuan->name    = $request->name;
-            // $satuan->slug = Str::slug($request->name);
+            $category->category_name = $request->name;
+            // $category->slug = Str::slug($request->name);
 
-            $satuan->save();
+            $category->save();
         } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->route('satuan.create')->withInput()->with(
+            DB:: rollBack();
+            return redirect()->route('category.create')->withInput()->with(
                 'error-msg',
                 // $e->getMessage() = digunakan untuk pengecekan eror
                 'Data Gagal disimpan'
             );
         }
 
-        DB::commit();
+        DB:: commit();
 
-        return redirect()->route('satuan.index')
+        return redirect()->route('category.index')
             // ->withInput() jika berhasil input tampil kembali
             ->with('success-msg', 'Data berhasil disimpan data');
     }
@@ -98,10 +97,10 @@ class SatuanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Satuan  $satuan
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Satuan $satuan)
+    public function show($id)
     {
         //
     }
@@ -109,42 +108,42 @@ class SatuanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Satuan  $satuan
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $item = Satuan::with([
+        $item = Category::with([
 
-            ])->findOrFail($id);
+        ])->findOrFail($id);
 
-        return view('unit.edit',['item' => $item]);
+        return view('category.edit',['item' => $item]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Satuan  $satuan
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $item = Satuan::findOrFail($id);
+        $item = Category::findOrFail($id);
 
-        // $item = Satuan::with([
+        // $item = Category::with([
         //     // 'items',
         // ])->findOrFail($id);
 
         $this->validate($request, [
-            'name'    => 'required|min:2',
+            'name'    => 'required|min:3',
         ]);
 
         DB:: beginTransaction();
         
         try{
 
-            $item->name    = $request->name;
+            $item->category_name    = $request->name;
             // $item->slug = Str::slug($request->name);
 
             $item->update();
@@ -152,29 +151,29 @@ class SatuanController extends Controller
         }
         catch(\Exception $e){
             DB:: rollBack();
-            return redirect()->route('satuan.edit')->withInput()->with('error-msg', 
+            return redirect()->route('category.edit')->withInput()->with('error-msg', 
             // $e->getMessage() = digunakan untuk pengecekan eror
             'Data Gagal di edit');
         }
 
         DB:: commit();
 
-        return redirect()->route('satuan.index')
+        return redirect()->route('category.index')
         // ->withInput() jika berhasil input tampil kembali
-        ->with('success-msg', 'Data berhasil di edit data');
+        ->with('success-msg', 'Data berhasil di edit');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Satuan  $satuan
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $item = Satuan::findorFail($id);
+        $item = Category::findorFail($id);
         $item->delete();
 
-        return redirect()->route('satuan.index');
+        return redirect()->route('category.index');
     }
 }

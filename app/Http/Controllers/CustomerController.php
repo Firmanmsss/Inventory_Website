@@ -180,6 +180,6 @@ class CustomerController extends Controller
         $item = Customer::findorFail($id);
         $item->delete();
 
-        return redirect()->route('course.index');
+        return redirect()->route('customer.index');
     }
 }
