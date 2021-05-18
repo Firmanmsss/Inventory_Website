@@ -15,8 +15,7 @@
                 <div class="card-header border-0">
                   <div class="card-title text-center">
                     <img src="../../../app-assets/images/logo/180_1.png" alt="Logo WMS">
-                    <h2>Warehouse Management System</h2>
-                    <h4>WMS</h4>
+                    <h3>Warehouse Management System</h3>
                   </div>
                   <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
                     <span>Create Account</span>
@@ -24,7 +23,7 @@
                 </div>
                 <div class="card-content">
                   <div class="card-body">
-                    <form class="form-horizontal form-simple" method="POST" action="{{ route('register') }}" novalidate>
+                    <form class="form-horizontal" method="POST" action="{{ route('register') }}" novalidate>
                         @csrf
 
                       <fieldset class="form-group position-relative has-icon-left mb-1">
@@ -76,9 +75,7 @@
 
                       <fieldset class="form-group position-relative has-icon-left">
                         
-                        <input id="password-confirm" type="password" placeholder="Confirm Password" class="form-control form-control-lg input-lg" name="password_confirmation" required autocomplete="new-password">                        
-                        {{-- <input type="password" class="form-control form-control-lg input-lg" id="user-password"
-                        placeholder="Enter Password" required> --}}
+                        <input id="password-confirm" type="password" placeholder="Confirm Password" class="form-control form-control-lg input-lg" name="password_confirmation" required autocomplete="new-password">
                         <div class="form-control-position">
                           <i class="la la-key"></i>
                         </div>

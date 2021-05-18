@@ -35,7 +35,9 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
               <table class="table table-striped table-bordered file-export" id="ReadTable">
                 <thead>
                   <tr>
+                    <th>Customer</th>
                     <th>Foto</th>
+                    <th>Category</th>
                     <th>Part Name</th>
                     <th>Unit</th>
                     <th>Stock</th>
@@ -47,7 +49,9 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
                 </tbody>
                 <tfoot>
                   <tr>
+                    <th>Customer</th>
                     <th>Foto</th>
+                    <th>Category</th>
                     <th>Part Name</th>
                     <th>Unit</th>
                     <th>Stock</th>
@@ -87,10 +91,10 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
       dom: 'Bfrtip',
         buttons: [
           {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
-          {extend:'csv'},
+          {extend: 'csv'},
           {extend: 'excel', title: 'Contoh File Excel Datatables'},
           {extend: 'pdf', title:'Contoh File PDF Datatables'},
-          {extend:'print',title: 'Contoh Print Datatables'},
+          {extend: 'print',title: 'Contoh Print Datatables'},
           {
             text: '<i class="ft-rotate-cw"></i>',
             action: function (e, dt, node, config) {
@@ -103,9 +107,11 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
           url: '{!! url()->current() !!}',
       },
       columns: [
+          { data: 'customer.name', name: 'customer.name' },
           { data: 'foto', name: 'foto' },
-          { data: 'name', name: 'name'},
-          { data: 'satuan', name: 'satuan' },
+          { data: 'category.category_name', name: 'category.category_name'},
+          { data: 'partname', name: 'partname'},
+          { data: 'unit.name', name: 'unit.name' },
           { data: 'stok', name: 'stok' },
           {
               data: 'action',

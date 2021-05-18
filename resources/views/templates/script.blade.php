@@ -29,3 +29,4 @@
 <script src="../../../app-assets/js/scripts/pages/dashboard-sales.js" type="text/javascript"></script>
 <script src="../../../app-assets/js/scripts/tables/datatables/datatable-advanced.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL JS-->
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>

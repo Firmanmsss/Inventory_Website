@@ -24,27 +24,27 @@ class PartNameController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Part_Name::query();
+            $query = Part_Name::with(['customer','unit','category']);
             // dd($query->name);
             return DataTables:: of($query)
                 ->addColumn('action', function ($item) {
                     return '
-                        <div    class         = "btn-group">
-                        <div    class         = "dropdown">
-                        <button class         = "btn btn-primary dropdown-toggle mr-1 mb-1"
-                                type          = "button" id = "action' .  $item->id . '"
-                                data-toggle   = "dropdown"
-                                aria-haspopup = "true"
-                                aria-expanded = "false">
+                        <div class="btn-group">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle mr-1 mb-1" 
+                                    type="button" id="action' .  $item->id . '"
+                                        data-toggle="dropdown" 
+                                        aria-haspopup="true"
+                                        aria-expanded="false">
                                         Action
                                 </button>
-                                <div class = "dropdown-menu" aria-labelledby = "action' .  $item->id . '">
-                                <a   class = "dropdown-item" href            = "' . route('partname.edit', $item->id) . '">
+                                <div class="dropdown-menu" aria-labelledby="action' .  $item->id . '">
+                                    <a class="dropdown-item" href="' . route('partname.edit', $item->id) . '">
                                         Edit
                                     </a>
-                                    <form action = "' . route('partname.destroy', $item->id) . '" method = "POST">
+                                    <form action="' . route('partname.destroy', $item->id) . '" method="POST">
                                         ' . method_field('delete') . csrf_field() . '
-                                        <button type = "submit" class = "dropdown-item text-danger">
+                                        <button type="submit" class="dropdown-item text-danger">
                                             Delete
                                         </button>
                                     </form>
@@ -84,8 +84,7 @@ class PartNameController extends Controller
         // $rules = array('amount' => array('match:/^[0-9]{1,3}(,[0-9]{3})*\.[0-9]+$/'));
 
         $this->validate($request, [
-            'partname' => 'required|min:3|unique:part__names,name',
-            'unit'     => 'required|min:2',
+            'partname' => 'required|min:3|unique:part__names,partname',
             'std_qty'  => 'required|integer',
             'foto'     => 'image|mimes:png,jpg',
         ]);
@@ -107,11 +106,12 @@ class PartNameController extends Controller
                 $partname->foto = $store_as;
             }
             
-            $partname->id_cust = $request->id_cust;
-            $partname->name    = $request->partname;
-            $partname->satuan  = $request->unit;
-            $partname->std_qty = $request->std_qty;
-            $partname->stok    = '1';
+            $partname->id_cust     = $request->id_cust;
+            $partname->id_category = $request->id_category;
+            $partname->id_unit     = $request->id_unit;
+            $partname->partname    = $request->partname;
+            $partname->std_qty     = $request->std_qty;
+            $partname->stok        = '1';
 
             $partname->save();
             // dd($partname);
@@ -150,16 +150,12 @@ class PartNameController extends Controller
      */
     public function edit($id)
     {
-        $item = Part_Name::with(['customer','satuan','category'])->findOrFail($id);
+        $item = Part_Name::with(['customer','unit','category'])->findOrFail($id);
         $customers = Customer::all();
         $satuan = Satuan::all();
         $category = Category::all();
 
-        return view('part_name.edit',
-        [
-            'item' => $item, 
-            'customers' => $customers
-        ]);
+        return view('part_name.edit',compact('customers','satuan','category'));
     }
 
     /**
@@ -173,13 +169,10 @@ class PartNameController extends Controller
     {
         // $item = Part_Name::findOrFail($id);
 
-        $partname = Part_Name::with([
-            'customer',
-        ])->findOrFail($id);
+        $partname = Part_Name::with(['customer','unit','category'])->findOrFail($id);
 
         $this->validate($request, [
-            'name' => ['required','min:3',Rule::unique('part__names')->ignore($partname->id)],
-            'unit'     => 'required|min:2',
+            'partname' => ['required','min:3',Rule::unique('part__names')->ignore($partname->id)],
             'std_qty'  => 'required|integer',
             'foto'     => 'image|mimes:png,jpg',
         ]);
@@ -200,11 +193,11 @@ class PartNameController extends Controller
                 $partname->foto = $store_as;
             }
             
-            $partname->id_cust = $request->id_cust;
-            $partname->name    = $request->name;
-            $partname->satuan  = $request->unit;
-            $partname->std_qty = $request->std_qty;
-            $partname->stok    = '1';
+            $partname->id_cust     = $request->id_cust;
+            $partname->id_category = $request->id_category;
+            $partname->id_unit     = $request->id_unit;
+            $partname->partname    = $request->partname;
+            $partname->std_qty     = $request->std_qty;
 
             $partname->update();
             // dd($partname);

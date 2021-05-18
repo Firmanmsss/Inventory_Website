@@ -15,8 +15,7 @@
                   <div class="card-title text-center">
                     <div class="p-1">
                       <img src="../../../app-assets/images/logo/180_1.png" alt="Logo WMS">
-                      <h2>Warehouse Management System</h2>
-                      <h4>WMS</h4>
+                      <h3>Warehouse Management System</h3>
                     </div>
                   </div>
                   <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
@@ -62,7 +61,7 @@
                             {{-- <input type="checkbox" id="remember-me" class="chk-remember">
                             <label for="remember-me"> Remember Me</label> --}}
 
-                            <input class="chk-remember" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                            {{-- <input class="chk-remember" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> --}}
 
                             <label class="form-check-label" for="remember">
                                 {{ __('Remember Me') }}

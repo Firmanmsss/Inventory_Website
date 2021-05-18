@@ -69,6 +69,12 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+        // $this->validate($request, [
+        //     'name'    => 'required',
+        //     'no_telp' => 'required|min:9|max:12|numeric',
+        //     'alamat'  => 'required'
+        // ]);
+
         DB::beginTransaction();
 
         try {
@@ -80,6 +86,7 @@ class CustomerController extends Controller
             // $customer->slug = Str::slug($request->name);
 
             $customer->save();
+            // dd($customer);
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('customer.create')->withInput()->with(
@@ -139,7 +146,7 @@ class CustomerController extends Controller
 
         $this->validate($request, [
             'name'    => 'required|min:3',
-            'no_telp' => 'required|min:10 max:12',
+            'no_telp' => 'required|min:10,max:12',
             'alamat'  => 'required|min:3'
         ]);
 

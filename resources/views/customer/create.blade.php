@@ -29,7 +29,7 @@
           </div>
           <div class="card-content collapse show">
             <div class="card-body">
-              <form class="form" novalidate action="{{ route('customer.store') }}" method="POST">
+              <form class="form" id="validateform" action="{{ route('customer.store') }}" method="POST">
                 @csrf
                 <div class="form-body">
                   <h4 class="form-section"><i class="ft-user"></i> Data Customer</h4>
@@ -37,19 +37,19 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="partname" class="form-control" placeholder="Name" name="name">
+                        <input type="text" id="partname" required minlength="3" class="form-control" value="{{ old('name') }}" placeholder="Name" name="name">
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="no_telp">No. Telp</label>
-                        <input type="text" id="no_telp" class="form-control" placeholder="No. Telp" name="no_telp">
+                        <input type="number" id="no_telp" required minlength="9" maxlength="12" class="form-control" placeholder="No. Telp" value="{{ old('no_telp') }}" name="no_telp">
                       </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="alamat">Alamat</label>
-                            <textarea id="alamat" rows="5" class="form-control" name="alamat" placeholder="Alamat"></textarea>
+                            <textarea id="alamat" rows="5" required minlength="3" class="form-control" name="alamat" placeholder="Alamat">{{ old('alamat') }}</textarea>
                         </div>
                     </div>
                   </div>
@@ -72,5 +72,17 @@
 @endsection
 
 @push('addon-script')
+<script>
+  // function validateform(){
+  //   var text = "";
+  //   var vname = document.getElementById("partname");
+  //   if(!vname.checkValidity()){
+  //     document
+  //   }
+  // }
 
+$(document).ready(function(){
+  $('#validateform').validate();
+})
+</script>
 @endpush

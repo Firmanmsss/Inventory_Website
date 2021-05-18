@@ -50,17 +50,17 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="partname">Part Name</label>
-                        <input type="text" id="partname" class="form-control" placeholder="Part Name" name="partname">
+                        <input type="text" id="partname" value="{{ old('partname') }}" class="form-control" placeholder="Part Name" name="partname">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="id_cust">Customer</label>
-                        <select name="id_cust" id="select" required class="select2 form-control">
+                        <label for="id_unit">Unit</label>
+                        <select name="id_unit" id="id_unit" required class="select2 form-control">
                           <option value="none" selected="" disabled="">Choose Unit</option>
                           {{-- <option value="2">Firman</option> --}}
                           @foreach ($satuan as $unt)
-                          <option value="{{ $unt->id }}" {{ old('id') === ''. $unt->id .'' ? 'selected' : '' }}>{{ $unt->name }}</option>
+                          <option value="{{ $unt->id }}" {{ old('id_unit') === ''. $unt->id .'' ? 'selected' : '' }}>{{ $unt->name }}</option>
                             {{-- <option value="{{ $cst->id }}">{{ $cst->name }}</option> --}}
                           @endforeach
                         </select>
@@ -71,13 +71,13 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="std_qty">Std. Qty</label>
-                        <input type="text" id="std_qty" class="form-control" placeholder="Std. Qty" name="std_qty">
+                        <input type="text" id="std_qty" value="{{ old('std_qty') }}" class="form-control" placeholder="Std. Qty" name="std_qty">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="id_cust">Customer</label>
-                        <select name="id_cust" id="select" required class="select2 form-control">
+                        <select name="id_cust" id="id_cust" required class="select2 form-control">
                           <option value="none" selected="" disabled="">Choose Customer</option>
                           {{-- <option value="2">Firman</option> --}}
                           @foreach ($customers as $cst)
@@ -91,12 +91,12 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label for="id_cust">Customer</label>
-                        <select name="id_cust" id="select" required class="select2 form-control">
+                        <label for="id_category">Category</label>
+                        <select name="id_category" id="id_category" required class="select2 form-control">
                           <option value="none" selected="" disabled="">Choose Category</option>
                           {{-- <option value="2">Firman</option> --}}
                           @foreach ($category as $ctg)
-                          <option value="{{ $ctg->id }}" {{ old('id') === ''. $ctg->id .'' ? 'selected' : '' }}>{{ $ctg->category_name }}</option>
+                          <option value="{{ $ctg->id }}" {{ old('id_category') === ''. $ctg->id .'' ? 'selected' : '' }}>{{ $ctg->category_name }}</option>
                             {{-- <option value="{{ $cst->id }}">{{ $cst->name }}</option> --}}
                           @endforeach
                         </select>
@@ -108,7 +108,7 @@
                       <div class="form-group">
                         <h5>Foto</h5>
                         <div class="controls">
-                          <input type="file" name="foto" class="form-control dropify" required>
+                          <input type="file" name="foto" value="{{ old('foto') }}" class="form-control dropify" required>
                         </div>
                       </div>
                     </div>

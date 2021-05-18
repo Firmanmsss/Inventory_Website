@@ -7,8 +7,14 @@
   <meta name="description" content="Modern admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities with bitcoin dashboard.">
   <meta name="keywords" content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
   <meta name="author" content="PIXINVENT">
+  
   <title>Warehouse Management System
   </title>
+  <style>
+    .error{
+      color:red
+    }
+  </style>
   @include('templates.link')
   @stack('addon-link')
 </head>
