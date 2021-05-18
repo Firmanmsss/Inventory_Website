@@ -16,10 +16,6 @@ class CategorySeeder extends Seeder
             'category_name' => 'Web Programming',
             'created_at'    => \Carbon\Carbon::now(),
             'updated_at'    => \Carbon\Carbon::now(),
-        ],[
-            'category_name' => 'Desktop Programming',
-            'created_at'    => \Carbon\Carbon::now(),
-            'updated_at'    => \Carbon\Carbon::now(),
         ]);
     }
 }
