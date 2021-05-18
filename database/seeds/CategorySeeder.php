@@ -13,7 +13,7 @@ class CategorySeeder extends Seeder
     public function run()
     {
         DB::table('categories')->insert([
-            'category_name' => 'Web Programming',
+            'category_name' => 'Web Programming', 
             'created_at'    => \Carbon\Carbon::now(),
             'updated_at'    => \Carbon\Carbon::now(),
         ]);
