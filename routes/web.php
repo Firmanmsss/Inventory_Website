@@ -22,7 +22,7 @@ Auth::routes();
 
 Route::get('/dashboard', 'HomeController@index')->name('home');
 
-Route::resource('partname', 'PartNameController');
+Route::resource('partnamectr', 'PartNameController');
 
 Route::resource('goodreceipt','GoodReceiveController');
 

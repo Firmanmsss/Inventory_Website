@@ -42,7 +42,7 @@
                     </ul>
                 </div>
               @endif
-              <form class="form" novalidate action="{{ route('partname.store') }}" method="POST" enctype="multipart/form-data">
+              <form class="form" novalidate action="{{ route('partnamectr.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-body">
                   <h4 class="form-section"><i class="ft-box"></i> Data Part Name</h4>
@@ -115,7 +115,7 @@
                   </div>
                 </div>
                 <div class="form-actions">
-                  <button type="button" class="btn btn-warning mr-1" onclick="window.location.href='{{ route('partname.index') }}'">
+                  <button type="button" class="btn btn-warning mr-1" onclick="window.location.href='{{ route('partnamectr.index') }}'">
                     <i class="ft-x"></i> Cancel
                   </button>
                   <button type="submit" class="btn btn-primary">

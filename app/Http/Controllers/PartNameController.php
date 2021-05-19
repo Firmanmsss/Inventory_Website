@@ -6,7 +6,6 @@ use App\Category;
 use App\Customer;
 use App\Part_Name;
 use App\Satuan;
-// use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,9 +23,9 @@ class PartNameController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Part_Name::with(['customer','unit','category']);
-            // dd($query->name);
-            return DataTables:: of($query)
+            $query = Part_Name::with(['category','customer','unit'])->select('part__names.*');
+            // dd($query);
+            return DataTables::of($query)
                 ->addColumn('action', function ($item) {
                     return '
                         <div class="btn-group">
@@ -39,10 +38,10 @@ class PartNameController extends Controller
                                         Action
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="action' .  $item->id . '">
-                                    <a class="dropdown-item" href="' . route('partname.edit', $item->id) . '">
+                                    <a class="dropdown-item" href="' . route('partnamectr.edit', $item->id) . '">
                                         Edit
                                     </a>
-                                    <form action="' . route('partname.destroy', $item->id) . '" method="POST">
+                                    <form action="' . route('partnamectr.destroy', $item->id) . '" method="POST">
                                         ' . method_field('delete') . csrf_field() . '
                                         <button type="submit" class="dropdown-item text-danger">
                                             Delete
@@ -51,8 +50,9 @@ class PartNameController extends Controller
                                 </div>
                             </div>
                     </div>';
-                })->editColumn('foto', function ($item) {
-                    return $item->foto ? '<img src="' . Storage::url('assets/partname/'.$item->foto) . '" style="max-height: 80px;"/>' : '<img src="' . asset('/app-assets/images/no-image.png') . '" style="max-height: 80px;"/>';
+                })
+                ->editColumn('foto', function ($item) {
+                    return $item->foto ? '<img src="' . Storage::url('assets/partname/'.$item->foto) . '" style="max-height: 80px;"/>' : '<img src="' . asset('/app-assets/images/no-image.jpg') . '" style="max-height: 80px;"/>';
                 })
                 ->rawColumns(['action','foto'])
                 ->make();
@@ -68,8 +68,8 @@ class PartNameController extends Controller
     public function create()
     {
         $customers = Customer::all();
-        $satuan = Satuan::all();
-        $category = Category::all();
+        $satuan    = Satuan::all();
+        $category  = Category::all();
         return view('part_name.create', compact('customers','satuan','category'));
     }
 
@@ -99,8 +99,7 @@ class PartNameController extends Controller
                 $name      = $img->getClientOriginalName();
                 $filename  = pathinfo($name, PATHINFO_FILENAME);
                 $extension = $img->getClientOriginalExtension();
-
-                $store_as = $filename.'_'.time().'.'.$extension;
+                $store_as  = $filename.'_'.time().'.'.$extension;
                 $img->storeAs('public/assets/partname/', $store_as);
 
                 $partname->foto = $store_as;
@@ -119,14 +118,14 @@ class PartNameController extends Controller
         }
         catch(\Exception $e){
             DB:: rollBack();
-            return redirect()->route('partname.create')->withInput()->with('error-msg', 
+            return redirect()->route('partnamectr.create')->withInput()->with('error-msg', 
             $e->getMessage());
             // 'Data Gagal disimpan');
         }
 
         DB:: commit();
 
-        return redirect()->route('partname.index')
+        return redirect()->route('partnamectr.index')
         // ->withInput() jika berhasil input tampil kembali
         ->with('success-msg', 'Data berhasil disimpan data');
     }
@@ -150,12 +149,11 @@ class PartNameController extends Controller
      */
     public function edit($id)
     {
-        $item = Part_Name::with(['customer','unit','category'])->findOrFail($id);
+        $item = Part_Name::with(['category','customer','unit'])->findOrFail($id);
         $customers = Customer::all();
-        $satuan = Satuan::all();
-        $category = Category::all();
-
-        return view('part_name.edit',compact('customers','satuan','category'));
+        $satuan    = Satuan::all();
+        $category  = Category::all();
+        return view('part_name.edit', compact('customers','satuan','category','item'));
     }
 
     /**
@@ -167,54 +165,57 @@ class PartNameController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $item = Part_Name::findOrFail($id);
-
-        $partname = Part_Name::with(['customer','unit','category'])->findOrFail($id);
+        $partnamenya = Part_Name::with([
+            'category','customer','unit'
+        ])->findOrFail($id);
 
         $this->validate($request, [
-            'partname' => ['required','min:3',Rule::unique('part__names')->ignore($partname->id)],
             'std_qty'  => 'required|integer',
-            'foto'     => 'image|mimes:png,jpg',
+            'partname'  => [
+                'required',
+                'min:3',
+                Rule::unique('part__names')->ignore($partnamenya->id)
+            ],
+            'foto'    => 'image|mimes:png,jpg',
         ]);
 
-        DB:: beginTransaction();
+        DB::beginTransaction();
 
         try{
+            $img       = $request->file('foto');
 
-            $img = $request->file('foto');
             if($img){
                 $name      = $img->getClientOriginalName();
                 $filename  = pathinfo($name, PATHINFO_FILENAME);
                 $extension = $img->getClientOriginalExtension();
-
+    
                 $store_as = $filename.'_'.time().'.'.$extension;
                 $img->storeAs('public/assets/partname/', $store_as);
 
-                $partname->foto = $store_as;
+                $partnamenya->foto = $store_as;
+
             }
-            
-            $partname->id_cust     = $request->id_cust;
-            $partname->id_category = $request->id_category;
-            $partname->id_unit     = $request->id_unit;
-            $partname->partname    = $request->partname;
-            $partname->std_qty     = $request->std_qty;
-
-            $partname->update();
-            // dd($partname);
-
+            $partnamenya->id_cust     = $request->id_cust;
+            $partnamenya->id_category = $request->id_category;
+            $partnamenya->id_unit     = $request->id_unit;
+            $partnamenya->partname    = $request->partname;
+            $partnamenya->std_qty     = $request->std_qty;
+            // $course->slug        = Str::slug($request->title);
+            // $course->banner      = $request->file('banner')->store('assets/course', 'public') ?? null;
+            // $course->publish     = $request->publish ?? 0;
+            // dd($partnamenya);
+            $partnamenya->update();
         }
         catch(\Exception $e){
-            DB:: rollBack();
-            return redirect()->route('partname.edit')->withInput()->with('error-msg', 
-            // $e->getMessage());
-            'Data Gagal di Update');
+            DB::rollBack();
+            return redirect()->route('partnamectr.edit')->withInput()->with('error-msg', 'Course Gagal disimpan');
         }
 
-        DB:: commit();
+        DB::commit();
 
-        return redirect()->route('partname.index')
+        return redirect()->route('partnamectr.index')
         // ->withInput() jika berhasil input tampil kembali
-        ->with('success-msg', 'Data berhasil di Update');
+        ->with('success-msg', 'Berhasil simpan data');
     }
 
     /**
@@ -228,6 +229,6 @@ class PartNameController extends Controller
         $item = Part_Name::findorFail($id);
         $item->delete();
 
-        return redirect()->route('partname.index');
+        return redirect()->route('partnamectr.index');
     }
 }

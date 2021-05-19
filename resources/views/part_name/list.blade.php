@@ -12,7 +12,7 @@
 
 @section('btn_right')
 <button class="btn btn-success btn-glow px-2"
-type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.location.href='{{ route('partname.create') }}'" aria-expanded="false">Tambah</button>
+type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.location.href='{{ route('partnamectr.create') }}'" aria-expanded="false">Tambah</button>
 @endsection
 <!-- isi bagian konten -->
 @section('contents')

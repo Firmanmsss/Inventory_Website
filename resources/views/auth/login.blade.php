@@ -63,9 +63,9 @@
 
                             {{-- <input class="chk-remember" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> --}}
 
-                            <label class="form-check-label" for="remember">
+                            {{-- <label class="form-check-label" for="remember">
                                 {{ __('Remember Me') }}
-                            </label>
+                            </label> --}}
                           </fieldset>
                         </div>
 

@@ -42,7 +42,7 @@
                     </ul>
                 </div>
               @endif
-              <form class="form" novalidate action="{{ route('partname.update', $item->id) }}" method="POST" enctype="multipart/form-data">
+              <form class="form" novalidate action="{{ route('partnamectr.update', $item->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="form-body">
@@ -59,7 +59,7 @@
                         <label for="id_unit">Unit</label>
                         <select name="id_unit" id="id_unit" required class="select2 form-control">
                           {{-- <option value="none" selected="" disabled="">Choose Unit</option> --}}
-                          <option value="{{ $item->id_unit }}" disabled="" selected="">{{ $item->unit->name }}</option>
+                          <option value="none" disabled="">{{ $item->unit->name }}</option>
                           @foreach ($satuan as $unt)
                           <option value="{{ $unt->id }}" {{ old('id_unit') === ''. $unt->id .'' ? 'selected' : '' }}>{{ $unt->name }}</option>
                             {{-- <option value="{{ $cst->id }}">{{ $cst->name }}</option> --}}
@@ -80,7 +80,7 @@
                         <label for="id_cust">Customer</label>
                         <select name="id_cust" id="select" required class="select2 form-control">
                           {{-- <option value="none" selected="">Choose Customer</option> --}}
-                          <option value="{{ $item->id_cust }}" disabled="" selected="" >{{ $item->customer->name }}</option>
+                          <option value="none" disabled="">{{ $item->customer->name }}</option>
                           @foreach ($customers as $cst)
                           <option value="{{ $cst->id }}" {{ old('id_cust') === ''. $cst->id .'' ? 'selected' : '' }}>{{ $cst->name }}</option>
                             {{-- <option value="{{ $cst->id }}">{{ $cst->name }}</option> --}}
@@ -95,7 +95,7 @@
                         <label for="id_category">Category</label>
                         <select name="id_category" id="id_category" required class="select2 form-control">
                           {{-- <option value="none" selected="" disabled="">Choose Category</option> --}}
-                          <option value="{{ $item->id_category }}" disabled="" selected="">{{ $item->category->category_name }}</option>
+                          <option value="none" disabled="">{{ $item->category->category_name }}</option>
                           @foreach ($category as $ctg)
                           <option value="{{ $ctg->id }}" {{ old('id_category') === ''. $ctg->id .'' ? 'selected' : '' }}>{{ $ctg->category_name }}</option>
                             {{-- <option value="{{ $cst->id }}">{{ $cst->name }}</option> --}}
@@ -122,7 +122,7 @@
                   </div>
                 </div>
                 <div class="form-actions">
-                  <button type="button" class="btn btn-warning mr-1" onclick="window.location.href='{{ route('partname.index') }}'">
+                  <button type="button" class="btn btn-warning mr-1" onclick="window.location.href='{{ route('partnamectr.index') }}'">
                     <i class="ft-x"></i> Cancel
                   </button>
                   <button type="submit" class="btn btn-primary">
