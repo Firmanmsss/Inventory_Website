@@ -42,7 +42,7 @@
                     </ul>
                 </div>
               @endif
-              <form class="form" novalidate action="{{ route('partnamectr.store') }}" method="POST" enctype="multipart/form-data">
+              <form class="form" action="{{ route('partnamectr.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-body">
                   <h4 class="form-section"><i class="ft-box"></i> Data Part Name</h4>

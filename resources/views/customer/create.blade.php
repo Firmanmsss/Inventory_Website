@@ -37,7 +37,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="partname" required minlength="3" class="form-control" value="{{ old('name') }}" placeholder="Name" name="name">
+                        <input type="text" id="name" required minlength="3" class="form-control" value="{{ old('name') }}" placeholder="Name" name="name">
                       </div>
                     </div>
                     <div class="col-md-12">
