@@ -21,4 +21,8 @@ class Part_Name extends Model
     public function unit(){
         return $this->belongsTo(Satuan::class,'id_unit','id');
     }
+
+    public function good_receipt(){
+        return $this->hasMany(GoodReceive::class,'id_goodreceipt','id');
+    }
 }

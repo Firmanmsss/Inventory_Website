@@ -9,4 +9,12 @@ class GoodReceive extends Model
     protected $table = 'good_receives';
 
     protected $fillable = ['id_cust','id_partname','tanggal','checker','pic','qty_in','location','qty_loc'];
+
+    public function Mpartname(){
+        return $this->belongsTo(Part_Name::class,'id_partname','id');
+    }
+
+    public function customer(){
+        return $this->belongsTo(Customer::class,'id_cust','id');
+    }
 }

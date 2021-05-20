@@ -5,6 +5,9 @@
         </li>
         <li class=" nav-item"><a href="#"><i class="la la-television"></i><span class="menu-title" data-i18n="nav.templates.main">Inventory</span></a>
           <ul class="menu-content">
+            <li class=" navigation-header">
+              <span>Partname</span><i class="la la-ellipsis-h ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Partname"></i>
+            </li>
             <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.main">Customers</a>
               <ul class="menu-content">
                 <li><a class="menu-item" href="{{ route('customer.index') }}" data-i18n="nav.templates.horz.classic">Data</a>
@@ -23,9 +26,39 @@
                 </li>
               </ul>
             </li>
+            <li class=" navigation-header">
+              <span>Data</span><i class="la la-ellipsis-h ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Data"></i>
+            </li>
+            <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.main">Checker</a>
+              <ul class="menu-content">
+                <li><a class="menu-item" href="{{ route('checker.index') }}" data-i18n="nav.templates.horz.top_icon">Data</a>
+                </li>
+                <li><a class="menu-item" href="{{ route('checker.create') }}" data-i18n="nav.templates.horz.classic">Add New</a>
+                </li>
+              </ul>
+            </li>
+            <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.main">Location</a>
+              <ul class="menu-content">
+                <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.top_icon">Data</a>
+                </li>
+                <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.classic">Add New</a>
+                </li>
+              </ul>
+            </li>
+            <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.main">PIC</a>
+              <ul class="menu-content">
+                <li><a class="menu-item" href="{{ route('personinc.index') }}" data-i18n="nav.templates.horz.top_icon">Data</a>
+                </li>
+                <li><a class="menu-item" href="{{ route('personinc.create') }}" data-i18n="nav.templates.horz.classic">Add New</a>
+                </li>
+              </ul>
+            </li>
+            <li class=" navigation-header">
+              <span>Transaksi</span><i class="la la-ellipsis-h ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Transaksi"></i>
+            </li>
             <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.main">Good Receipt</a>
               <ul class="menu-content">
-                <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.classic">Transaksi</a>
+                <li><a class="menu-item" href="{{ route('goodreceipt.create') }}" data-i18n="nav.templates.horz.classic">Transaksi</a>
                 </li>
                 <li><a class="menu-item" href="{{ route('goodreceipt.index') }}" data-i18n="nav.templates.horz.top_icon">Record</a>
                 </li>

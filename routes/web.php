@@ -25,9 +25,14 @@ Route::get('/dashboard', 'HomeController@index')->name('home');
 Route::resource('partnamectr', 'PartNameController');
 
 Route::resource('goodreceipt','GoodReceiveController');
+Route::get('/detail-gr/{id}','DetailGoodReceiveController@index')->name('gr-detail');
 
 Route::resource('customer', 'CustomerController');
 
 Route::resource('satuan','SatuanController');
 
 Route::resource('category', 'CategoryController');
+
+Route::resource('checker', 'CheckerController');
+
+Route::resource('personinc', 'PersonInCController');

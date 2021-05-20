@@ -1,5 +1,5 @@
 {{-- extend ke indexnya --}}
-@extends('layouts.master')
+@extends('layouts.master_detail')
 
 <!-- isi bagian judul halaman -->
 @section('title', 'Good Receipt')
@@ -12,8 +12,9 @@
 
 @section('btn_right')
 <button class="btn btn-success btn-glow px-2"
-type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.location.href='{{ route('goodreceipt.create') }}'" aria-expanded="false">Transaksi</button>
+type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tambah</button>
 @endsection
+
 <!-- isi bagian konten -->
 @section('contents')
 
@@ -22,7 +23,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title">List Good Receipt</h4>
+            <h4 class="card-title">Detail Good Receipt</h4>
             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
             <div class="heading-elements">
               <ul class="list-inline mb-0">
@@ -32,25 +33,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
           </div>
           <div class="card-content collapse show">
             <div class="card-body card-dashboard">
-              <table class="table table-striped table-bordered file-export" id="example">
-                <thead>
-                  <tr>
-                    <th>Part Name</th>
-                    <th>Unit</th>
-                    <th>Stock</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-                <tfoot>
-                  <tr>
-                    <th>Part Name</th>
-                    <th>Unit</th>
-                    <th>Stock</th>
-                    <th>Action</th>
-                  </tr>
-                </tfoot>
-              </table>
+              {{-- .... --}}
             </div>
           </div>
         </div>
@@ -76,43 +59,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
 
 <script>
     $(document).ready(function(){
-        $('#example').dataTable().fnDestroy();
-
-        $('#example').DataTable( {
-        processing: true,
-        serverSide: true,
-        ordering: true,
-        dom: 'Bfrtip',
-        buttons: [
-          {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
-          {extend:'csv'},
-          {extend: 'excel', title: 'Contoh File Excel Datatables'},
-          {extend: 'pdf', title:'Contoh File PDF Datatables'},
-          {extend:'print',title: 'Contoh Print Datatables'},
-          {
-            text: '<i class="ft-rotate-cw"></i>',
-            action: function (e, dt, node, config) {
-                dt.ajax.reload()
-            },
-            titleAttr: 'Refresh'
-          },
-        ],
-        ajax: {
-            url: '{!! url()->current() !!}',
-        },
-        columns: [
-            { data: 'checker', name: 'checker'},
-            { data: 'qty_in', name: 'qty_in' },
-            { data: 'location', name: 'location' },
-            {
-                data: 'action',
-                name: 'action',
-                orderable: false,
-                searchable: false
-            },
-        ],
-        "order": [[ 0, 'desc' ], [ 1, 'desc']]
-    });
+        
     });
 </script>
 @endpush

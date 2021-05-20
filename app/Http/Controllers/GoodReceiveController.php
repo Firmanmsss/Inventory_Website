@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\GoodReceive;
+use App\Part_Name;
 use GoodReceiveSeeder;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -32,10 +34,13 @@ class GoodReceiveController extends Controller
                                     Action
                             </button>
                             <div class="dropdown-menu" aria-labelledby="action' .  $item->id . '">
-                                <a class="dropdown-item" href="' . route('partname.edit', $item->id) . '">
+                                <a class="dropdown-item" href="' . route('gr-detail', $item->id) . '">
+                                    Detail
+                                </a>
+                                <a class="dropdown-item" href="' . route('goodreceipt.edit', $item->id) . '">
                                     Edit
                                 </a>
-                                <form action="' . route('partname.destroy', $item->id) . '" method="POST">
+                                <form action="' . route('goodreceipt.destroy', $item->id) . '" method="POST">
                                     ' . method_field('delete') . csrf_field() . '
                                     <button type="submit" class="dropdown-item text-danger">
                                         Delete
@@ -58,7 +63,9 @@ class GoodReceiveController extends Controller
      */
     public function create()
     {
-        //
+        $customers = Customer::all();
+        $partname = Part_Name::all();
+        return view('good_receipt.create',compact('partname','customers'));
     }
 
     /**
