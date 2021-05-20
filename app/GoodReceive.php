@@ -17,4 +17,12 @@ class GoodReceive extends Model
     public function customer(){
         return $this->belongsTo(Customer::class,'id_cust','id');
     }
+
+    public function checker(){
+        return $this->belongsTo(Checker::class,'checker','id');
+    }
+
+    public function personinc(){
+        return $this->belongsTo(PersonInC::class,'pic','id');
+    }
 }

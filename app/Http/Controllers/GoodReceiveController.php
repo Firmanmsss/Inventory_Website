@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Checker;
 use App\Customer;
 use App\GoodReceive;
 use App\Part_Name;
+use App\PersonInC;
 use GoodReceiveSeeder;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -64,8 +66,10 @@ class GoodReceiveController extends Controller
     public function create()
     {
         $customers = Customer::all();
-        $partname = Part_Name::all();
-        return view('good_receipt.create',compact('partname','customers'));
+        $checker   = Checker::all();
+        $personinc = PersonInC::all();
+        $partname  = Part_Name::all();
+        return view('good_receipt.create',compact('partname','customers','checker','personinc'));
     }
 
     /**

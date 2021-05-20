@@ -83,25 +83,25 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                              <label for="id_cust">PIC</label>
-                              <select name="id_cust" id="id_cust" required class="select2 form-control">
+                              <label for="pic">PIC</label>
+                              <select name="pic" id="pic" required class="select2 form-control">
                                 <option value="none" selected="" disabled="">Choose PIC</option>
-                                <option value="2">Firman</option>
-                                {{-- @foreach ($satuan as $unt)
-                                <option value="{{ $unt->id }}" {{ old('id_unit') === ''. $unt->id .'' ? 'selected' : '' }}>{{ $unt->name }}</option> --}}
-                                {{-- @endforeach --}}
+                                {{-- <option value="2">Firman</option> --}}
+                                @foreach ($personinc as $pic)
+                                <option value="{{ $pic->id }}" {{ old('pic') === ''. $pic->id .'' ? 'selected' : '' }}>{{ $pic->name }}</option>
+                                @endforeach
                               </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                              <label for="id_cust">Checker</label>
-                              <select name="id_cust" id="id_cust" required class="select2 form-control">
+                              <label for="checker">Checker</label>
+                              <select name="checker" id="checker" required class="select2 form-control">
                                 <option value="none" selected="" disabled="">Choose Checker</option>
-                                <option value="2">Firman</option>
-                                {{-- @foreach ($satuan as $unt)
-                                <option value="{{ $unt->id }}" {{ old('id_unit') === ''. $unt->id .'' ? 'selected' : '' }}>{{ $unt->name }}</option> --}}
-                                {{-- @endforeach --}}
+                                {{-- <option value="2">Firman</option> --}}
+                                @foreach ($checker as $chkr)
+                                <option value="{{ $chkr->id }}" {{ old('checker') === ''. $chkr->id .'' ? 'selected' : '' }}>{{ $chkr->name }}</option>
+                                @endforeach
                               </select>
                             </div>
                         </div>
