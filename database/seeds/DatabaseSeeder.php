@@ -1,6 +1,7 @@
 <?php
 
 use App\Checker;
+use App\PurchaseOrder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TruckingSeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(LocationSeeder::class);
+        $this->call(PurchaseOrderSeeder::class);
     }
 }
