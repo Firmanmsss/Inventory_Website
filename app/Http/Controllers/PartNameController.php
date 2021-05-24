@@ -119,8 +119,8 @@ class PartNameController extends Controller
         catch(\Exception $e){
             DB:: rollBack();
             return redirect()->route('partnamectr.create')->withInput()->with('error-msg', 
-            $e->getMessage());
-            // 'Data Gagal disimpan');
+            // $e->getMessage());
+            'Data Gagal disimpan');
         }
 
         DB:: commit();
@@ -208,7 +208,7 @@ class PartNameController extends Controller
         }
         catch(\Exception $e){
             DB::rollBack();
-            return redirect()->route('partnamectr.edit')->withInput()->with('error-msg', 'Course Gagal disimpan');
+            return redirect()->route('partnamectr.edit')->withInput()->with('error-msg', 'Partname Gagal disimpan');
         }
 
         DB::commit();

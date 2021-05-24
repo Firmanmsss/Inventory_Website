@@ -6,10 +6,10 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 <!-- isi bagian judul halaman -->
-@section('title', 'Good Receipt')
+@section('title', 'Purchase Order')
 @section('breadcumb')
 
-<li class="breadcrumb-item active">Create Good Receipt
+<li class="breadcrumb-item active">Create Purchase Order
 </li>
 
 @endsection
@@ -42,94 +42,13 @@
                     </ul>
                 </div>
             @endif
-              <form class="form" id="validateform" action="{{ route('goodreceipt.store') }}" method="POST">
+              <form class="form" id="validateform" action="{{ route('purchaseorder.store') }}" method="POST">
                 @csrf
                 <div class="form-body">
-                  <h4 class="form-section"><i class="ft-user"></i> Data Good Receipt</h4>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="id_po">PO Number</label>
-                              <select name="id_po" id="id_po" required class="select2 form-control">
-                                <option value="none" selected="" disabled="">Choose PO Number</option>
-                                <option value="2">PO/123/456</option>
-                                {{-- @foreach ($satuan as $unt)
-                                <option value="{{ $unt->id }}" {{ old('id_unit') === ''. $unt->id .'' ? 'selected' : '' }}>{{ $unt->name }}</option> --}}
-                                {{-- @endforeach --}}
-                              </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="id_cust">Customer</label>
-                            <select name="id_cust" id="id_cust" required class="select2 form-control">
-                              <option value="none" selected="" disabled="">Choose Customer</option>
-                              {{-- <option value="2">Firman</option> --}}
-                              @foreach ($customers as $cst)
-                              <option value="{{ $cst->id }}" {{ old('id_cust') === ''. $cst->id .'' ? 'selected' : '' }}>{{ $cst->name }}</option>
-                              @endforeach
-                            </select>
-                          </div>
-                      </div>
-                    </div>
+                  <h4 class="form-section"><i class="ft-user"></i> Data Purchase Order</h4>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="po_supplier">PO Supplier Number </label>
-                                <input type="text" id="po_supplier" value="{{ old('po_supplier') }}" class="form-control" placeholder="PO Supplier Number" name="po_supplier">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="pic">PIC</label>
-                              <select name="pic" id="pic" required class="select2 form-control">
-                                <option value="none" selected="" disabled="">Choose PIC</option>
-                                {{-- <option value="2">Firman</option> --}}
-                                @foreach ($personinc as $pic)
-                                <option value="{{ $pic->id }}" {{ old('pic') === ''. $pic->id .'' ? 'selected' : '' }}>{{ $pic->name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="checker">Checker</label>
-                              <select name="checker" id="checker" required class="select2 form-control">
-                                <option value="none" selected="" disabled="">Choose Checker</option>
-                                {{-- <option value="2">Firman</option> --}}
-                                @foreach ($checker as $chkr)
-                                <option value="{{ $chkr->id }}" {{ old('checker') === ''. $chkr->id .'' ? 'selected' : '' }}>{{ $chkr->name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        {{-- <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="all_qty">All Qty </label>
-                                <input type="text" id="all_qty" value="{{ old('all_qty') }}" class="form-control" placeholder="Qty" name="all_qty">
-                            </div>
-                        </div> --}}
-                        <div class="col-md-12">
-                            <div class="form-group">
-                              <label for="location_name">Location</label>
-                              <select name="location_name" id="location_name" required class="select2 form-control">
-                                <option value="none" selected="" disabled="">Choose Location</option>
-                                {{-- <option value="2">A001A</option> --}}
-                                @foreach ($locat as $lct)
-                                <option value="{{ $lct->id }}" {{ old('location_name') === ''. $lct->id .'' ? 'selected' : '' }}>{{ $lct->location_name }}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="items">Items</label>
                                 <div class="table-responsive">
                                     <table class="table" id="t_item">
                                         <thead>
@@ -149,7 +68,7 @@
                                                       <option value="none" selected="" disabled="">Choose Partname</option>
                                                       {{-- <option value="2">Kenzo Paris</option> --}}
                                                       @foreach ($partname as $pn)
-                                                      <option value="{{ $pn->id }}" {{ old('id_partname') === ''. $pn->id .'' ? 'selected' : '' }}>{{ $pn->partname }}</option>
+                                                      <option value="{{ $pn->id }}" {{ old('partname') === ''. $pn->id .'' ? 'selected' : '' }}>{{ $pn->partname }}</option>
                                                       @endforeach
                                                     </select>
                                                 </td>
@@ -184,7 +103,7 @@
                     </div>                  
                 </div>
                 <div class="form-actions">
-                  <button type="button" class="btn btn-warning mr-1" onclick="window.location.href='{{ route('goodreceipt.index') }}'">
+                  <button type="button" class="btn btn-warning mr-1" onclick="window.location.href='{{ route('purchaseorder.index') }}'">
                     <i class="ft-x"></i> Cancel
                   </button>
                   <button type="submit" class="btn btn-primary">

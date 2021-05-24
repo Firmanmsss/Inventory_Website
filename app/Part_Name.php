@@ -25,4 +25,8 @@ class Part_Name extends Model
     public function good_receipt(){
         return $this->hasMany(GoodReceive::class,'id_goodreceipt','id');
     }
+
+    public function purchase_order(){
+        return $this->hasMany(PurchaseOrder::class,'id_purchaseorder','id');
+    }
 }

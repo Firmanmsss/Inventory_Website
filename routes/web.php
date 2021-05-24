@@ -36,3 +36,7 @@ Route::resource('category', 'CategoryController');
 Route::resource('checker', 'CheckerController');
 
 Route::resource('personinc', 'PersonInCController');
+
+Route::resource('locat', 'LocationController');
+
+Route::resource('purchaseorder', 'PurchaseOrderController');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Checker;
 use App\Customer;
 use App\GoodReceive;
+use App\Location;
 use App\Part_Name;
 use App\PersonInC;
 use GoodReceiveSeeder;
@@ -69,7 +70,8 @@ class GoodReceiveController extends Controller
         $checker   = Checker::all();
         $personinc = PersonInC::all();
         $partname  = Part_Name::all();
-        return view('good_receipt.create',compact('partname','customers','checker','personinc'));
+        $locat     = Location::all();
+        return view('good_receipt.create',compact('partname','customers','checker','personinc','locat'));
     }
 
     /**

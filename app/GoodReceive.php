@@ -25,4 +25,8 @@ class GoodReceive extends Model
     public function personinc(){
         return $this->belongsTo(PersonInC::class,'pic','id');
     }
+
+    public function locat(){
+        return $this->belongsTo(Location::class,'location','id');
+    }
 }
