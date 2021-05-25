@@ -16,8 +16,9 @@ class CreatePurchaseOrdersTable extends Migration
         Schema::create('purchase_orders', function (Blueprint $table) {
             $table->id();
             $table->string('id_partname');
-            $table->double('sisa_stok',10,2)->default(0.00);
+            $table->double('price',10,2)->default(0.00);
             $table->double('qty',10,2)->default(0.00);
+            $table->double('total',10,2)->default(0.00);
             $table->timestamps();
         });
     }

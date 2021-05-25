@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Part_Name;
 use App\PurchaseOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 use function GuzzleHttp\Promise\all;
@@ -71,7 +72,38 @@ class PurchaseOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'id_partname'   => 'required|array',
+            'id_partname.*' => 'required|integer',
+            'price'         => 'required|array',
+            'price.*'       => 'required|integer',
+            'qty'           => 'required|array',
+            'qty.*'         => 'required|integer',
+            'total'         => 'required|array',
+            'total.*'       => 'required|integer',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            foreach($request->partname as $key => $val){
+                $po = new PurchaseOrder;
+
+                $po->id_partname = $request->partname[$key];
+                $po->price       = $request->price[$key];
+                $po->qty         = $request->qty[$key];
+                $po->total       = $request->total[$key];
+
+                // dd($po);
+                $po->save();
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('purchaseorder.create')->withInput()->with('error-msg', 'Data Gagal disimpan');
+        }
+
+        DB::commit();
+        return redirect()->route('purchaseorder.index')->withInput()->with('success-msg', 'Data Berhasil disimpan');
     }
 
     /**

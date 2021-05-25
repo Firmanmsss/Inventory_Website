@@ -54,7 +54,6 @@
                                         <thead>
                                             <tr>
                                                 <th>Partname</th>
-                                                <th>Unit</th>
                                                 <th>Price</th>
                                                 <th>Qty</th>
                                                 <th>Total</th>
@@ -62,6 +61,33 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                          @if (old('_token'))
+                                            @foreach ( old('partname') as $key => $val )
+                                              <tr>
+                                                <td>
+                                                  <select name="partname[{{ $key }}]" id="partname{{ $key }}" required class="select2 form-control">
+                                                    <option value="none" selected="" disabled="">Choose Partname</option>
+                                                    {{-- <option value="2">Kenzo Paris</option> --}}
+                                                    @foreach ($partname as $pn)
+                                                    <option value="{{ $pn->id }}" {{ old('partname') === ''. $pn->id .'' ? 'selected' : '' }}>{{ $pn->partname }}</option>
+                                                    @endforeach
+                                                  </select>
+                                                </td>
+                                                <td>
+                                                    <input type="number" required min="0" class="form-control" onkeyup="TotalPurchase(0)" value="{{ old('price')[$key] }}" placeholder="Price" name="price[{{ $key }}]" id="price{{ $key }}">
+                                                </td>
+                                                <td>
+                                                    <input type="number" required min="0" class="form-control" onkeyup="TotalPurchase(0)" value="{{ old('qty')[$key] }}" placeholder="Qty" name="qty[{{ $key }}]" id="qty{{ $key }}">
+                                                </td>
+                                                <td>
+                                                    <input type="number" required min="0" class="form-control" readonly value="{{ old('total')[$key] }}" name="total[{{ $key }}]" id="total{{ $key }}">
+                                                </td>
+                                                <td>
+                                                  {!! $key !== 0 ? '<button class="btn btn-danger delete_row" type="button"><span class="material-icons">Hapus</span></button>' : '' !!}
+                                                </td>
+                                              </tr>
+                                            @endforeach
+                                          @else
                                             <tr>
                                                 <td>
                                                     <select name="partname[0]" id="partname_0" required class="select2 form-control">
@@ -71,9 +97,6 @@
                                                       <option value="{{ $pn->id }}" {{ old('partname') === ''. $pn->id .'' ? 'selected' : '' }}>{{ $pn->partname }}</option>
                                                       @endforeach
                                                     </select>
-                                                </td>
-                                                <td>
-                                                    <input type="text" required minlength="2" maxlength="20" class="form-control" value="{{ old('unit') }}" placeholder="Unit" name="unit[0]" id="unit_0">
                                                 </td>
                                                 <td>
                                                     <input type="number" required min="0" class="form-control" onkeyup="TotalPurchase(0)" value="{{ old('price') }}" placeholder="Price" name="price[0]" id="price_0">
@@ -88,6 +111,7 @@
                                                     
                                                 </td>
                                             </tr>
+                                          @endif
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -145,7 +169,7 @@
 
 <script>
   $(document).ready(function(){
-    let count = 0;
+    let count = {{ old('_token') ? count(old('item')) : 0 }};
     $('#btn_add').on('click', function(){
         count += 1
         let row =`
@@ -159,13 +183,10 @@
               </select>
             </td>
             <td>
-                <input type="text" required minlength="2" maxlength="20" class="form-control" value="{{ old('unit') }}" placeholder="Unit" name="unit[${count}]" id="unit_${count}">
+                <input type="number" required min="0" class="form-control" onkeyup="TotalPurchase(${count})" value="{{ old('price') }}" placeholder="Price" name="price[${count}]" id="price_${count}">
             </td>
             <td>
-                <input type="number" required min="0" class="form-control" value="{{ old('price') }}" placeholder="Price" name="price[${count}]" id="price_${count}">
-            </td>
-            <td>
-                <input type="number" required min="0" class="form-control" value="{{ old('qty') }}" placeholder="Qty" name="qty[${count}]" id="qty_${count}">
+                <input type="number" required min="0" class="form-control" onkeyup="TotalPurchase(${count})" value="{{ old('qty') }}" placeholder="Qty" name="qty[${count}]" id="qty_${count}">
             </td>
             <td>
                 <input type="number" required min="0" class="form-control" readonly value="{{ old('total') }}" name="total[${count}]" id="total_${count}">
