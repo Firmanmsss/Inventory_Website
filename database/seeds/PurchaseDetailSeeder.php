@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class PurchaseOrderSeeder extends Seeder
+class PurchaseDetailSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,8 +12,12 @@ class PurchaseOrderSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('purchase_orders')->insert([
-            'nomor_po' => '1',
+        DB::table('purchase_details')->insert([
+            'nomor_po'    => '1',
+            'id_partname' => '1',
+            'price'       => '5500.50',
+            'qty'         => '2.5',
+            'total'       => '25500.75',
             'created_at'  => \Carbon\Carbon::now(),
             'updated_at'  => \Carbon\Carbon::now(),
         ]);

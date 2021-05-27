@@ -8,13 +8,13 @@ class PurchaseOrder extends Model
 {
     protected $table = 'purchase_orders';
 
-    protected $fillable = ['id_partname','price','qty','total'];
+    protected $fillable = ['nomor_po'];
 
     public function good_receipt(){
         return $this->hasMany(GoodReceive::class,'id_goodreceipt','id');
     }
 
-    public function partname(){
-        return $this->belongsTo(Part_Name::class,'id_partname','id');
+    public function details(){
+        return $this->hasMany(PurchaseDetail::class,'id_purchase_detail','nomor_po');
     }
 }

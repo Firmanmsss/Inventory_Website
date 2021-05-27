@@ -13,7 +13,7 @@ class SatuanSeeder extends Seeder
     public function run()
     {
         DB::table('satuans')->insert([
-            'name'       => 'org',
+            'name'       => 'Pcs',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);

@@ -37,7 +37,6 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
                   <tr>
                     <th>Kode</th>
                     <th>Tanggal</th>
-                    <th>QTY</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -46,7 +45,6 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
                   <tr>
                     <th>Kode</th>
                     <th>Tanggal</th>
-                    <th>QTY</th>
                     <th>Action</th>
                   </tr>
                 </tfoot>
@@ -101,9 +99,8 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
             url: '{!! url()->current() !!}',
         },
         columns: [
-            { data: 'id', name: 'id'},
+            { data: 'nomor_po', name: 'nomor_po'},
             { data: 'created_at', name: 'created_at' },
-            { data: 'qty', name: 'qty' },
             {
                 data: 'action',
                 name: 'action',

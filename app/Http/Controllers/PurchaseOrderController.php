@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Part_Name;
+use App\PurchaseDetail;
 use App\PurchaseOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -73,37 +74,55 @@ class PurchaseOrderController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'id_partname'   => 'required|array',
-            'id_partname.*' => 'required|integer',
-            'price'         => 'required|array',
-            'price.*'       => 'required|integer',
-            'qty'           => 'required|array',
-            'qty.*'         => 'required|integer',
-            'total'         => 'required|array',
-            'total.*'       => 'required|integer',
+            'nomor_po'  => 'required|unique:purchase_orders,nomor_po',
+            'product'   => 'required|array',
+            'product.*' => 'required',
+            'price'     => 'required|array',
+            'price.*'   => 'required|numeric',
+            'qty'       => 'required|array',
+            'qty.*'     => 'required|numeric',
+            'total'     => 'required|array',
+            'total.*'   => 'required|numeric',
         ]);
 
         DB::beginTransaction();
 
         try {
-            foreach($request->partname as $key => $val){
-                $po = new PurchaseOrder;
+            $purchaseO = new PurchaseOrder;
 
-                $po->id_partname = $request->partname[$key];
-                $po->price       = $request->price[$key];
-                $po->qty         = $request->qty[$key];
-                $po->total       = $request->total[$key];
+            $purchaseO->nomor_po = 'PO/INV/'.$request->nomor_po;
 
-                // dd($po);
-                $po->save();
-            }
+            $purchaseO->save();
+
         } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->route('purchaseorder.create')->withInput()->with('error-msg', 'Data Gagal disimpan');
+            DB::rollback();
+            return redirect()->withInput()->with('error-msg', 'Gagal Simpan Pembelian');
+        }
+
+        try {
+            // $purchaseD = new PurchaseDetail;
+            foreach($request->product as $key => $val) {
+                $product_purchase[] = [
+                    'nomor_po'    => $purchaseO->nomor_po,
+                    'id_partname' => $request->product[$key],
+                    'price'       => $request->price[$key],
+                    'qty'         => $request->qty[$key],
+                    'total'       => $request->total[$key],
+                    'created_at'  => \Carbon\Carbon::now(),
+                    'updated_at'  => \Carbon\Carbon::now(),
+                ];
+            }
+            $purchaseO->details()->insert($product_purchase);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            // return $e->getMessage();
+
+            return redirect()->route('purchaseorder.create')->with('error-msg', 'Gagal Simpan Pembelian Produk');
         }
 
         DB::commit();
-        return redirect()->route('purchaseorder.index')->withInput()->with('success-msg', 'Data Berhasil disimpan');
+        return redirect()->route('purchaseorder.index')->with('success-msg', 'Berhasil simpan Pembelian');
     }
 
     /**

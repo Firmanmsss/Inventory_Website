@@ -46,85 +46,94 @@
                 @csrf
                 <div class="form-body">
                   <h4 class="form-section"><i class="ft-user"></i> Data Purchase Order</h4>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="table-responsive">
-                                    <table class="table" id="t_item">
-                                        <thead>
-                                            <tr>
-                                                <th>Partname</th>
-                                                <th>Price</th>
-                                                <th>Qty</th>
-                                                <th>Total</th>
-                                                <th><div class="button btn btn-danger btn-sm" type="button" id="btn_delete_all"><i class="ft-x"></i> Delete All</div></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                          @if (old('_token'))
-                                            @foreach ( old('partname') as $key => $val )
-                                              <tr>
-                                                <td>
-                                                  <select name="partname[{{ $key }}]" id="partname{{ $key }}" required class="select2 form-control">
-                                                    <option value="none" selected="" disabled="">Choose Partname</option>
-                                                    {{-- <option value="2">Kenzo Paris</option> --}}
-                                                    @foreach ($partname as $pn)
-                                                    <option value="{{ $pn->id }}" {{ old('partname') === ''. $pn->id .'' ? 'selected' : '' }}>{{ $pn->partname }}</option>
-                                                    @endforeach
-                                                  </select>
-                                                </td>
-                                                <td>
-                                                    <input type="number" required min="0" class="form-control" onkeyup="TotalPurchase(0)" value="{{ old('price')[$key] }}" placeholder="Price" name="price[{{ $key }}]" id="price{{ $key }}">
-                                                </td>
-                                                <td>
-                                                    <input type="number" required min="0" class="form-control" onkeyup="TotalPurchase(0)" value="{{ old('qty')[$key] }}" placeholder="Qty" name="qty[{{ $key }}]" id="qty{{ $key }}">
-                                                </td>
-                                                <td>
-                                                    <input type="number" required min="0" class="form-control" readonly value="{{ old('total')[$key] }}" name="total[{{ $key }}]" id="total{{ $key }}">
-                                                </td>
-                                                <td>
-                                                  {!! $key !== 0 ? '<button class="btn btn-danger delete_row" type="button"><span class="material-icons">Hapus</span></button>' : '' !!}
-                                                </td>
-                                              </tr>
-                                            @endforeach
-                                          @else
-                                            <tr>
-                                                <td>
-                                                    <select name="partname[0]" id="partname_0" required class="select2 form-control">
-                                                      <option value="none" selected="" disabled="">Choose Partname</option>
-                                                      {{-- <option value="2">Kenzo Paris</option> --}}
-                                                      @foreach ($partname as $pn)
-                                                      <option value="{{ $pn->id }}" {{ old('partname') === ''. $pn->id .'' ? 'selected' : '' }}>{{ $pn->partname }}</option>
-                                                      @endforeach
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input type="number" required min="0" class="form-control" onkeyup="TotalPurchase(0)" value="{{ old('price') }}" placeholder="Price" name="price[0]" id="price_0">
-                                                </td>
-                                                <td>
-                                                    <input type="number" required min="0" class="form-control" onkeyup="TotalPurchase(0)" value="{{ old('qty') }}" placeholder="Qty" name="qty[0]" id="qty_0">
-                                                </td>
-                                                <td>
-                                                    <input type="number" required min="0" class="form-control" readonly value="{{ old('total') }}" name="total[0]" id="total_0">
-                                                </td>
-                                                <td>
-                                                    
-                                                </td>
-                                            </tr>
-                                          @endif
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td colspan="7">
-                                                    <button class="btn btn-sm btn-info" type="button" id="btn_add"><i class="la la-plus-circle"></i>  Add</button>
-                                                </td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
+                  <div class="form-group row">
+                    <div class="col-md-6">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">PO/INV/</span>
                         </div>
-                    </div>                  
+                        <input type="text" class="form-control" placeholder="Nomor PO" id="nomor_po" value="{{ old('nomor_po') }}" name="nomor_po">
+                        {{-- <div class="input-group-append">
+                          <span class="input-group-text">.00</span>
+                        </div> --}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <div class="table-responsive">
+                          <table class="table" id="t_item">
+                            <thead>
+                              <tr>
+                                <th>Partname</th>
+                                <th>Price</th>
+                                <th>Qty</th>
+                                <th>Total</th>
+                                <th><div class="button btn btn-danger btn-sm" type="button" id="btn_delete_all"><i class="ft-x"></i> Delete All</div></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              @if(old('_token'))
+                                @foreach (old('product') as $key => $val)
+                                <tr>
+                                  <td>
+                                    <select name="product[{{ $key }}]" id="product_{{ $key }}" class="form-control">
+                                      <option value="">--Pilih Produk--</option>
+                                      @foreach ($partname as $pn)
+                                          <option value="{{ $pn->id ?? '' }}">{{ $pn->partname ?? '' }}</option>
+                                      @endforeach
+                                    </select>
+                                  </td>
+                                  <td>
+                                    <input class="form-control border-primary" onkeyup="TotalPurchase();" name="price[{{ $key }}]" value="{{ old('price')[$key] }}" type="number" placeholder="Harga" id="price_{{ $key }}">
+                                  </td>
+                                  <td>
+                                    <input class="form-control border-primary" onkeyup="TotalPurchase();" name="qty[{{ $key }}]" value="{{ old('qty')[$key] }}" type="number" placeholder="Jumlah" id="qty_{{ $key}}">
+                                  </td>
+                                  <td>
+                                    <input class="form-control border-primary" readonly name="total[{{ $key }}]" value="{{ old('total')[$key] }}" type="number" placeholder="Total Harga" id="total_{{ $key }}">
+                                  </td>
+                                  <td>
+                                      {!! $key !==0 ? '<button type="button" class="btn btn-sm btn-danger btn-delete" >X</button> ' : '' !!}
+                                  </td>
+                                </tr>
+                                @endforeach
+                              @else
+                              <tr>
+                                <td>
+                                  <select name="product[0]" id="product_0" class="form-control">
+                                    <option value="">--Pilih Produk--</option>
+                                    @foreach ($partname as $pn)
+                                        <option value="{{ $pn->id ?? '' }}">{{ $pn->partname ?? '' }}</option>
+                                    @endforeach
+                                  </select>
+                                </td>
+                                <td>
+                                  <input type="number" onkeyup="TotalPurchase(0);" name="price[0]" id="price_0" class="form-control">
+                                </td>
+                                <td>
+                                  <input type="number" onkeyup="TotalPurchase(0);" name="qty[0]" id="qty_0" class="form-control">
+                                </td>
+                                <td>
+                                  <input type="number" readonly name="total[0]" id="total_0" class="form-control">
+                                </td>
+                                <td></td>
+                              </tr>
+                              @endif
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td colspan="7">
+                                    <button class="btn btn-sm btn-info" type="button" id="btn_add"><i class="la la-plus-circle"></i>  Add</button>
+                                </td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>                
                 </div>
                 <div class="form-actions">
                   <button type="button" class="btn btn-warning mr-1" onclick="window.location.href='{{ route('purchaseorder.index') }}'">
@@ -169,37 +178,36 @@
 
 <script>
   $(document).ready(function(){
-    let count = {{ old('_token') ? count(old('item')) : 0 }};
+    let count = {{ old('_token') ? count(old('product')) : 0 }};
     $('#btn_add').on('click', function(){
         count += 1
         let row =`
         <tr>
             <td>
-              <select name="partname[${count}]" id="partname_${count}" required class="select2-container form-control">
-                <option value="none" selected="" disabled="">Choose Partname</option>
+              <select name="product[${count}]" id="product_${count}" class="form-control select2">
+                <option value="">--Pilih Produk--</option>
                 @foreach ($partname as $pn)
-                  <option value="{{ $pn->id }}" {{ old('id_partname') === ''. $pn->id .'' ? 'selected' : '' }}>{{ $pn->partname }}</option>
+                    <option value="{{ $pn->id ?? '' }}">{{ $pn->partname ?? '' }}</option>
                 @endforeach
               </select>
             </td>
-            <td>
-                <input type="number" required min="0" class="form-control" onkeyup="TotalPurchase(${count})" value="{{ old('price') }}" placeholder="Price" name="price[${count}]" id="price_${count}">
-            </td>
-            <td>
-                <input type="number" required min="0" class="form-control" onkeyup="TotalPurchase(${count})" value="{{ old('qty') }}" placeholder="Qty" name="qty[${count}]" id="qty_${count}">
-            </td>
-            <td>
-                <input type="number" required min="0" class="form-control" readonly value="{{ old('total') }}" name="total[${count}]" id="total_${count}">
-            </td>
-            <td>
-                <button class="btn btn-sm btn-danger btn-delete" type="button"> Hapus</button>
-            </td>
-        </tr>
+              <td>
+                <input type="number" onkeyup="TotalPurchase(${count});" name="price[${count}]" id="price_${count}" class="form-control">
+              </td>
+              <td>
+                <input type="number" onkeyup="TotalPurchase(${count});" name="qty[${count}]" id="qty_${count}" class="form-control">
+              </td>
+              <td>
+                <input type="number" readonly name="total[${count}]" id="total_${count}" class="form-control">
+              </td>
+              <td>
+                <button type="button" class="btn btn-sm btn-danger btn-delete"><i class="ft-x"></i></button>
+              </td>
+          </tr>
         `
         $('#t_item tbody').append(row)
     })
-    
-  
+      
     $('#t_item').on('click','.btn-delete',function(){
         $(this).closest('tr').remove()
     })

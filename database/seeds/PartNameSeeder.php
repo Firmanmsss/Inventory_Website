@@ -16,7 +16,7 @@ class PartNameSeeder extends Seeder
             'id_cust'     => '1',
             'id_category' => '1',
             'id_unit'     => '1',
-            'partname'    => 'firman',
+            'partname'    => 'Baju',
             'std_qty'     => '1',
             'stok'        => '1',
             'created_at'  => \Carbon\Carbon::now(),
