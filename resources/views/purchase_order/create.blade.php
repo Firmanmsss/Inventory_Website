@@ -82,7 +82,7 @@
                                       <option value="" disabled selected>--Choose Partname--</option>
                                       @foreach ($partname as $pn)
                                           <option value="{{ $pn->id ?? '' }}">{{ $pn->partname ?? '' }}</option>
-                                      @endforeach
+                                      @endforeach 
                                     </select>
                                   </td>
                                   <td>
