@@ -13,7 +13,7 @@ class PurchaseOrderSeeder extends Seeder
     public function run()
     {
         DB::table('purchase_orders')->insert([
-            'nomor_po' => '1',
+            'nomor_po' => 'PO/INV/1',
             'created_at'  => \Carbon\Carbon::now(),
             'updated_at'  => \Carbon\Carbon::now(),
         ]);

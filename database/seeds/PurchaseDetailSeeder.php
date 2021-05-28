@@ -13,7 +13,7 @@ class PurchaseDetailSeeder extends Seeder
     public function run()
     {
         DB::table('purchase_details')->insert([
-            'nomor_po'    => '1',
+            'nomor_po'    => 'PO/INV/1',
             'id_partname' => '1',
             'price'       => '5500.50',
             'qty'         => '2.5',

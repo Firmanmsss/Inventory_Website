@@ -79,20 +79,20 @@
                                 <tr>
                                   <td>
                                     <select name="product[{{ $key }}]" id="product_{{ $key }}" class="form-control">
-                                      <option value="">--Pilih Produk--</option>
+                                      <option value="" disabled selected>--Choose Partname--</option>
                                       @foreach ($partname as $pn)
                                           <option value="{{ $pn->id ?? '' }}">{{ $pn->partname ?? '' }}</option>
                                       @endforeach
                                     </select>
                                   </td>
                                   <td>
-                                    <input class="form-control border-primary" onkeyup="TotalPurchase();" name="price[{{ $key }}]" value="{{ old('price')[$key] }}" type="number" placeholder="Harga" id="price_{{ $key }}">
+                                    <input class="form-control border-primary" onkeyup="TotalPurchase();" name="price[{{ $key }}]" value="{{ old('price')[$key] }}" type="number" placeholder="Price" id="price_{{ $key }}">
                                   </td>
                                   <td>
-                                    <input class="form-control border-primary" onkeyup="TotalPurchase();" name="qty[{{ $key }}]" value="{{ old('qty')[$key] }}" type="number" placeholder="Jumlah" id="qty_{{ $key}}">
+                                    <input class="form-control border-primary" onkeyup="TotalPurchase();" name="qty[{{ $key }}]" value="{{ old('qty')[$key] }}" type="number" placeholder="Qty" id="qty_{{ $key}}">
                                   </td>
                                   <td>
-                                    <input class="form-control border-primary" readonly name="total[{{ $key }}]" value="{{ old('total')[$key] }}" type="number" placeholder="Total Harga" id="total_{{ $key }}">
+                                    <input class="form-control border-primary" readonly name="total[{{ $key }}]" value="{{ old('total')[$key] }}" type="number" placeholder="Total" id="total_{{ $key }}">
                                   </td>
                                   <td>
                                       {!! $key !==0 ? '<button type="button" class="btn btn-sm btn-danger btn-delete" >X</button> ' : '' !!}
@@ -103,20 +103,20 @@
                               <tr>
                                 <td>
                                   <select name="product[0]" id="product_0" class="form-control">
-                                    <option value="">--Pilih Produk--</option>
+                                    <option value="" disabled selected>--Choose Partname--</option>
                                     @foreach ($partname as $pn)
                                         <option value="{{ $pn->id ?? '' }}">{{ $pn->partname ?? '' }}</option>
                                     @endforeach
                                   </select>
                                 </td>
                                 <td>
-                                  <input type="number" onkeyup="TotalPurchase(0);" name="price[0]" id="price_0" class="form-control">
+                                  <input type="number" onkeyup="TotalPurchase(0);" name="price[0]" id="price_0" placeholder="Price" class="form-control">
                                 </td>
                                 <td>
-                                  <input type="number" onkeyup="TotalPurchase(0);" name="qty[0]" id="qty_0" class="form-control">
+                                  <input type="number" onkeyup="TotalPurchase(0);" name="qty[0]" id="qty_0" placeholder="Qty" class="form-control">
                                 </td>
                                 <td>
-                                  <input type="number" readonly name="total[0]" id="total_0" class="form-control">
+                                  <input type="number" readonly name="total[0]" id="total_0" placeholder="Total" class="form-control">
                                 </td>
                                 <td></td>
                               </tr>
@@ -185,20 +185,20 @@
         <tr>
             <td>
               <select name="product[${count}]" id="product_${count}" class="form-control select2">
-                <option value="">--Pilih Produk--</option>
+                <option value="" disabled selected>--Choose Partname--</option>
                 @foreach ($partname as $pn)
                     <option value="{{ $pn->id ?? '' }}">{{ $pn->partname ?? '' }}</option>
                 @endforeach
               </select>
             </td>
               <td>
-                <input type="number" onkeyup="TotalPurchase(${count});" name="price[${count}]" id="price_${count}" class="form-control">
+                <input type="number" onkeyup="TotalPurchase(${count});" name="price[${count}]" id="price_${count}" placeholder="Price" class="form-control">
               </td>
               <td>
-                <input type="number" onkeyup="TotalPurchase(${count});" name="qty[${count}]" id="qty_${count}" class="form-control">
+                <input type="number" onkeyup="TotalPurchase(${count});" name="qty[${count}]" id="qty_${count}" placeholder="Qty" class="form-control">
               </td>
               <td>
-                <input type="number" readonly name="total[${count}]" id="total_${count}" class="form-control">
+                <input type="number" readonly name="total[${count}]" id="total_${count}" placeholder="Total" class="form-control">
               </td>
               <td>
                 <button type="button" class="btn btn-sm btn-danger btn-delete"><i class="ft-x"></i></button>
