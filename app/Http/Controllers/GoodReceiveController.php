@@ -8,6 +8,7 @@ use App\GoodReceive;
 use App\Location;
 use App\Part_Name;
 use App\PersonInC;
+use App\PurchaseOrder;
 use GoodReceiveSeeder;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -66,12 +67,13 @@ class GoodReceiveController extends Controller
      */
     public function create()
     {
-        $customers = Customer::all();
-        $checker   = Checker::all();
-        $personinc = PersonInC::all();
-        $partname  = Part_Name::all();
-        $locat     = Location::all();
-        return view('good_receipt.create',compact('partname','customers','checker','personinc','locat'));
+        $customers     = Customer::all();
+        $checker       = Checker::all();
+        $personinc     = PersonInC::all();
+        $partname      = Part_Name::all();
+        $locat         = Location::all();
+        $puchaseorders = PurchaseOrder::all();
+        return view('good_receipt.create',compact('partname','customers','checker','personinc','locat','puchaseorders'));
     }
 
     /**

@@ -10,7 +10,7 @@ class PurchaseDetail extends Model
 
     protected $fillable = ['nomor_po','id_partname','price','qty','total'];
 
-    public function partname(){
+    public function namepart(){
         return $this->belongsTo(Part_Name::class,'id_partname','id');
     }
 

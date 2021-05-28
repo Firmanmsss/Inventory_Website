@@ -52,10 +52,10 @@
                               <label for="id_po">PO Number</label>
                               <select name="id_po" id="id_po" required class="select2 form-control">
                                 <option value="none" selected="" disabled="">Choose PO Number</option>
-                                <option value="2">PO/123/456</option>
-                                {{-- @foreach ($satuan as $unt)
-                                <option value="{{ $unt->id }}" {{ old('id_unit') === ''. $unt->id .'' ? 'selected' : '' }}>{{ $unt->name }}</option> --}}
-                                {{-- @endforeach --}}
+                                {{-- <option value="2">PO/123/456</option> --}}
+                                @foreach ($puchaseorders as $po)
+                                <option value="{{ $po->id }}" {{ old('id_po') === ''. $po->id .'' ? 'selected' : '' }}>{{ $po->nomor_po }}</option>
+                                @endforeach
                               </select>
                             </div>
                         </div>
@@ -135,7 +135,6 @@
                                         <thead>
                                             <tr>
                                                 <th>Partname</th>
-                                                <th>Unit</th>
                                                 <th>Price</th>
                                                 <th>Qty</th>
                                                 <th>Total</th>
@@ -152,9 +151,6 @@
                                                       <option value="{{ $pn->id }}" {{ old('id_partname') === ''. $pn->id .'' ? 'selected' : '' }}>{{ $pn->partname }}</option>
                                                       @endforeach
                                                     </select>
-                                                </td>
-                                                <td>
-                                                    <input type="text" required minlength="2" maxlength="20" class="form-control" value="{{ old('unit') }}" placeholder="Unit" name="unit[0]" id="unit_0">
                                                 </td>
                                                 <td>
                                                     <input type="number" required min="0" class="form-control" onkeyup="TotalPurchase(0)" value="{{ old('price') }}" placeholder="Price" name="price[0]" id="price_0">
@@ -238,9 +234,6 @@
                   <option value="{{ $pn->id }}" {{ old('id_partname') === ''. $pn->id .'' ? 'selected' : '' }}>{{ $pn->partname }}</option>
                 @endforeach
               </select>
-            </td>
-            <td>
-                <input type="text" required minlength="2" maxlength="20" class="form-control" value="{{ old('unit') }}" placeholder="Unit" name="unit[${count}]" id="unit_${count}">
             </td>
             <td>
                 <input type="number" required min="0" class="form-control" value="{{ old('price') }}" placeholder="Price" name="price[${count}]" id="price_${count}">

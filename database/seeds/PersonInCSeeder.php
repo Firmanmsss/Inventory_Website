@@ -13,8 +13,8 @@ class PersonInCSeeder extends Seeder
     public function run()
     {
         DB::table('person_in_c_s')->insert([
-            'name'       => 'firman',
-            'posisi'     => 'tester',
+            'name'       => 'Dini',
+            'posisi'     => 'PIC PO',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);

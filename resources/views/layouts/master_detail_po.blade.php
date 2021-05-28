@@ -40,13 +40,13 @@
           <div class="collapse navbar-collapse" id="navbar-mobile">
             <ul class="nav navbar-nav mr-auto float-left">
               <li class="nav-item d-none d-md-block">
-                <a class="nav-link nav-link-search fullscreen-search-btn" href="{{ route('goodreceipt.index') }}"><i class="ft-arrow-left"></i>Back</a>
+                <a class="nav-link nav-link-search fullscreen-search-btn" href="{{ route('purchaseorder.index') }}"><i class="ft-arrow-left"></i>Back</a>
               </li>
             </ul>
             <ul class="nav navbar-nav float-right">
               <span class="avatar">
                   <img src="../../../app-assets/images/logo/180_1.png" alt="avatar"><i></i></span>
-              <h1>Detail Good Receipt</h1>
+              <h1>Detail Purchase Order</h1>
             </ul>
           </div>
         </div>

@@ -13,7 +13,7 @@ class LocationSeeder extends Seeder
     public function run()
     {
         DB::table('locations')->insert([
-            'location_name' => 'A001B',
+            'location_name' => 'A001-B',
             'created_at'    => \Carbon\Carbon::now(),
             'updated_at'    => \Carbon\Carbon::now(),
         ]);

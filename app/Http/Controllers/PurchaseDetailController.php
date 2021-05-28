@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Part_Name;
 use App\PurchaseDetail;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class PurchaseDetailController extends Controller
 {
@@ -12,9 +14,22 @@ class PurchaseDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($nomor_po)
     {
-        //
+        // $nomor = PurchaseDetail::select('select nomor_po from purchase_details where active = ?', [1]);
+        if (request()->ajax()) {
+            $query    = PurchaseDetail::with(['namepart']);
+            // dd($query);
+            return DataTables::of($query)
+                // ->addColumn('action', function ($item) {
+                //     return '
+                //     <div class="btn-group">
+                        
+                //     </div>';
+                // })
+                ->make();
+        }
+        return view('purchase_order.detail');
     }
 
     /**

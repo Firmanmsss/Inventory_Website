@@ -13,8 +13,8 @@ class CheckerSeeder extends Seeder
     public function run()
     {
         DB::table('checkers')->insert([
-            'name'       => 'firman',
-            'posisi'     => 'tester',
+            'name'       => 'Firman',
+            'posisi'     => 'Chceker PO',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);

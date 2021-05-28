@@ -149,7 +149,7 @@ class PartNameController extends Controller
      */
     public function edit($id)
     {
-        $item = Part_Name::with(['category','customer','unit'])->findOrFail($id);
+        $item      = Part_Name::with(['category','customer','unit'])->findOrFail($id);
         $customers = Customer::all();
         $satuan    = Satuan::all();
         $category  = Category::all();
@@ -171,12 +171,12 @@ class PartNameController extends Controller
 
         $this->validate($request, [
             'std_qty'  => 'required|integer',
-            'partname'  => [
+            'partname' => [
                 'required',
                 'min:3',
-                Rule::unique('part__names')->ignore($partnamenya->id)
+                Rule:: unique('part__names')->ignore($partnamenya->id)
             ],
-            'foto'    => 'image|mimes:png,jpg',
+            'foto' => 'image|mimes:png,jpg',
         ]);
 
         DB::beginTransaction();
