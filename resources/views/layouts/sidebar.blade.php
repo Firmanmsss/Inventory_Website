@@ -89,9 +89,9 @@
             </li>
             <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.main">Good Issue</a>
               <ul class="menu-content">
-                <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.classic">Transaction</a>
+                <li><a class="menu-item" href="{{ route('goodissue.create') }}" data-i18n="nav.templates.horz.classic">Transaction</a>
                 </li>
-                <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.top_icon">Record</a>
+                <li><a class="menu-item" href="{{ route('goodissue.index') }}" data-i18n="nav.templates.horz.top_icon">Record</a>
                 </li>
               </ul>
             </li>

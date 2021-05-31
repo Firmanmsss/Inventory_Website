@@ -19,10 +19,12 @@ class PurchaseDetailController extends Controller
     {
         // $nomor = PurchaseDetail::select('select nomor_po from purchase_details where active = ?', [1]);
         if (request()->ajax()) {
-            // $nomor = PurchaseOrder::select('nomor_po');
-            $query = PurchaseDetail::with(['namepart']);
-            dd($query);
+            $query = PurchaseDetail::with(['namepart'])->whereHas('purchaseorder',function($no_po){
+                $no_po->where('nomor_po',PurchaseDetail::select('nomor_po'));
+            });
+            // dd($query);
             return DataTables::of($query)
+                
                 ->make();
         }
         return view('purchase_order.detail');

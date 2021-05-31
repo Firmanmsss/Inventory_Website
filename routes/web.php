@@ -43,3 +43,5 @@ Route::resource('purchaseorder', 'PurchaseOrderController');
 Route::get('/detail-po/{nomor_po}','PurchaseDetailController@index')->name('po-detail');
 
 Route::resource('buyer', 'BuyerController');
+
+Route::resource('goodissue', 'GoodIssueController');
