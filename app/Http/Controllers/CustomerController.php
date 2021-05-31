@@ -184,7 +184,7 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $item = Customer::findorFail($id);
+        $item = Customer::findOrFail($id);
         $item->delete();
 
         return redirect()->route('customer.index');

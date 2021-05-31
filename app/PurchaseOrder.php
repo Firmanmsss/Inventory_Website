@@ -15,6 +15,6 @@ class PurchaseOrder extends Model
     }
 
     public function details(){
-        return $this->hasMany(PurchaseDetail::class,'id_purchase_detail','nomor_po');
+        return $this->hasMany(PurchaseDetail::class,'nomor_po','nomor_po');
     }
 }

@@ -13,9 +13,9 @@ class CustomerSeeder extends Seeder
     public function run()
     {
         DB::table('customers')->insert([
-            'name'       => 'firman',
+            'name'       => 'Toko Hype.Mocha',
             'no_telp'    => '081234567898',
-            'alamat'     => 'Bogor',
+            'alamat'     => 'Tangerang',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);

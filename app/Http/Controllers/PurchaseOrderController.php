@@ -39,9 +39,6 @@ class PurchaseOrderController extends Controller
                                     <a class="dropdown-item" href="' . route('po-detail', $item->id) . '">
                                         Detail
                                     </a>
-                                    <a class="dropdown-item" href="' . route('purchaseorder.edit', $item->id) . '">
-                                        Edit
-                                    </a>
                                     <form action="' . route('purchaseorder.destroy', $item->id) . '" method="POST">
                                         ' . method_field('delete') . csrf_field() . '
                                         <button type="submit" class="dropdown-item text-danger">

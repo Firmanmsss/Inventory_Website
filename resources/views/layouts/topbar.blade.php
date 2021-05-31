@@ -26,8 +26,8 @@
                 <span class="mr-1">Hello,
                   <span class="user-name text-bold-700">{{ Auth::user()->name }}</span>
                 </span>
-                <span class="avatar avatar-online">
-                  <img src="../../../app-assets/images/portrait/small/avatar-s-19.png" alt="avatar"><i></i></span>
+                {{-- <span class="avatar avatar-online">
+                  <img src="../../../app-assets/images/portrait/small/avatar-s-19.png" alt="avatar"><i></i></span> --}}
               </a>
               <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#"><i class="ft-user"></i> Edit Profile</a>
                 <div class="dropdown-divider"></div>

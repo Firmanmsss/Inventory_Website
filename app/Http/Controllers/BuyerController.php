@@ -122,7 +122,10 @@ class BuyerController extends Controller
      */
     public function edit($id)
     {
-        $item = Buyer::findorfail($id);
+        $item = Buyer::with([
+
+        ])->findOrFail($id);
+
         return view('buyer.edit',compact('item'));
     }
 
@@ -137,13 +140,13 @@ class BuyerController extends Controller
     {
         $item = Buyer::findOrFail($id);
 
-        // $item = Customer::with([
+        // $item = Buyer::with([
         //     // 'items',
         // ])->findOrFail($id);
 
         $this->validate($request, [
             'name'    => 'required|min:3',
-            'no_telp' => 'required|min:9|max:12|numeric',
+            'no_telp' => 'required|min:10,max:12',
             'alamat'  => 'required|min:3'
         ]);
 
@@ -153,9 +156,9 @@ class BuyerController extends Controller
 
             $item->name    = $request->name;
             $item->no_telp = $request->no_telp;
-            $item->alamat  = $request->alamat;
+            $item->Alamat  = $request->alamat;
             // $item->slug = Str::slug($request->name);
-            dd($item);
+
             $item->update();
 
         }
@@ -181,7 +184,7 @@ class BuyerController extends Controller
      */
     public function destroy($id)
     {
-        $item = Buyer::findorFail($id);
+        $item = Buyer::findOrFail($id);
         $item->delete();
 
         return redirect()->route('buyer.index');
