@@ -54,7 +54,7 @@
                                 <option value="none" selected="" disabled="">Choose PO Number</option>
                                 {{-- <option value="2">PO/123/456</option> --}}
                                 @foreach ($puchaseorders as $po)
-                                <option value="{{ $po->id }}" {{ old('id_po') === ''. $po->id .'' ? 'selected' : '' }}>{{ $po->nomor_po }}</option>
+                                <option value="{{ $po->id }}" {{ old('id_po') === ''. $po->id .'' ? 'selected' : '' }} >{{ 'PO/INV/'.$po->nomor_po }}</option>
                                 @endforeach
                               </select>
                             </div>
@@ -132,47 +132,23 @@
                                 <label for="items">Items</label>
                                 <div class="table-responsive">
                                     <table class="table" id="t_item">
-                                        <thead>
-                                            <tr>
-                                                <th>Partname</th>
-                                                <th>Price</th>
-                                                <th>Qty</th>
-                                                <th>Total</th>
-                                                <th><div class="button btn btn-danger btn-sm" type="button" id="btn_delete_all"><i class="ft-x"></i> Delete All</div></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <select name="partname[0]" id="partname_0" required class="select2 form-control">
-                                                      <option value="none" selected="" disabled="">Choose Partname</option>
-                                                      {{-- <option value="2">Kenzo Paris</option> --}}
-                                                      @foreach ($partname as $pn)
-                                                      <option value="{{ $pn->id }}" {{ old('id_partname') === ''. $pn->id .'' ? 'selected' : '' }}>{{ $pn->partname }}</option>
-                                                      @endforeach
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input type="number" required min="0" class="form-control" onkeyup="TotalPurchase(0)" value="{{ old('price') }}" placeholder="Price" name="price[0]" id="price_0">
-                                                </td>
-                                                <td>
-                                                    <input type="number" required min="0" class="form-control" onkeyup="TotalPurchase(0)" value="{{ old('qty') }}" placeholder="Qty" name="qty[0]" id="qty_0">
-                                                </td>
-                                                <td>
-                                                    <input type="number" required min="0" class="form-control" readonly value="{{ old('total') }}" name="total[0]" id="total_0">
-                                                </td>
-                                                <td>
-                                                    
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td colspan="7">
-                                                    <button class="btn btn-sm btn-info" type="button" id="btn_add"><i class="la la-plus-circle"></i>  Add</button>
-                                                </td>
-                                            </tr>
-                                        </tfoot>
+                                      <thead>
+                                        <tr>
+                                          <th>partname</th>
+                                          <th>price</th>
+                                          <th>qty</th>
+                                          <th>total</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody></tbody>
+                                      <tfoot>
+                                        <tr>
+                                          <th>partname</th>
+                                          <th>price</th>
+                                          <th>qty</th>
+                                          <th>total</th>
+                                        </tr>
+                                      </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -223,35 +199,42 @@
 <script>
   $(document).ready(function(){
     let count = 0;
-    $('#btn_add').on('click', function(){
-        count += 1
-        let row =`
-        <tr>
-            <td>
-              <select name="partname[${count}]" id="partname_${count}" required class="select2-container form-control">
-                <option value="none" selected="" disabled="">Choose Partname</option>
-                @foreach ($partname as $pn)
-                  <option value="{{ $pn->id }}" {{ old('id_partname') === ''. $pn->id .'' ? 'selected' : '' }}>{{ $pn->partname }}</option>
-                @endforeach
-              </select>
-            </td>
-            <td>
-                <input type="number" required min="0" class="form-control" value="{{ old('price') }}" placeholder="Price" name="price[${count}]" id="price_${count}">
-            </td>
-            <td>
-                <input type="number" required min="0" class="form-control" value="{{ old('qty') }}" placeholder="Qty" name="qty[${count}]" id="qty_${count}">
-            </td>
-            <td>
-                <input type="number" required min="0" class="form-control" readonly value="{{ old('total') }}" name="total[${count}]" id="total_${count}">
-            </td>
-            <td>
-                <button class="btn btn-sm btn-danger btn-delete" type="button"> Hapus</button>
-            </td>
-        </tr>
-        `
-        $('#t_item tbody').append(row)
+    // window.location.href='{{ route('po-detail') }}
+    $('#id_po').on('selected', function(){
+
+      $('#example').dataTable().fnDestroy();
+
+      $('#example').DataTable( {
+      processing: true,
+      serverSide: true,
+      ordering: true,
+      dom: 'Bfrtip',
+      buttons: [
+        {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
+        {extend:'csv'},
+        {extend: 'excel', title: 'Contoh File Excel Datatables'},
+        {extend: 'pdf', title:'Contoh File PDF Datatables'},
+        {extend:'print',title: 'Contoh Print Datatables'},
+        {
+          text: '<i class="ft-rotate-cw"></i>',
+          action: function (e, dt, node, config) {
+              dt.ajax.reload()
+          },
+          titleAttr: 'Refresh'
+        },
+      ],
+      ajax: {
+          url: '{!! url()->current() !!}',
+      },
+      columns: [
+          { data: 'namepart.partname', name: 'namepart.partname' },
+          { data: 'price', name: 'price' },
+          { data: 'qty', name: 'qty' },
+          { data: 'total', name: 'total' },
+      ],
+      "order": [[ 0, 'desc' ], [ 1, 'desc']]
+      });
     })
-    
   
     $('#t_item').on('click','.btn-delete',function(){
         $(this).closest('tr').remove()

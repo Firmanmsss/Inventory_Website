@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Part_Name;
 use App\PurchaseDetail;
 use App\PurchaseOrder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -36,7 +37,7 @@ class PurchaseOrderController extends Controller
                                         Action
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="action' .  $item->id . '">
-                                    <a class="dropdown-item" href="' . route('po-detail', $item->id) . '">
+                                    <a class="dropdown-item" href="' . route('po-detail', $item->nomor_po) . '">
                                         Detail
                                     </a>
                                     <form action="' . route('purchaseorder.destroy', $item->id) . '" method="POST">
@@ -49,9 +50,29 @@ class PurchaseOrderController extends Controller
                             </div>
                     </div>';
                 })
+                ->editcolumn('created_at', function($request){
+                    return $request->created_at->format('d M Y');
+                })
+                ->addcolumn('nomor_po', function($kodenya){
+                    return 'PO/INV/'.$kodenya->nomor_po;
+                })
                 ->make();
         }
         return view('purchase_order.list');
+    }
+
+    public function detail($nomor_po){
+        if (request()->ajax()) {
+            
+            $query   = PurchaseDetail::with(['namepart','purchaseorder'])->where('nomor_po','=',$nomor_po)->get();
+            // return $query;
+            return DataTables::of($query)
+                ->addcolumn('nomor_po', function($kodenya){
+                    return 'PO/INV/'.$kodenya->nomor_po;
+                })
+                ->make();
+        }
+        return view('purchase_order.detail');
     }
 
     /**
@@ -90,7 +111,7 @@ class PurchaseOrderController extends Controller
         try {
             $purchaseO = new PurchaseOrder;
 
-            $purchaseO->nomor_po = 'PO/INV/'.$request->nomor_po;
+            $purchaseO->nomor_po = $request->nomor_po;
 
             $purchaseO->save();
 
@@ -170,6 +191,7 @@ class PurchaseOrderController extends Controller
     {
         $item = PurchaseOrder::findorFail($id);
         $item->delete();
+        $item->details()->delete($id);
 
         return redirect()->route('purchaseorder.index');
     }

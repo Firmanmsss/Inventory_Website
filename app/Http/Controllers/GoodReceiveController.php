@@ -8,6 +8,7 @@ use App\GoodReceive;
 use App\Location;
 use App\Part_Name;
 use App\PersonInC;
+use App\PurchaseDetail;
 use App\PurchaseOrder;
 use GoodReceiveSeeder;
 use Illuminate\Http\Request;
@@ -58,6 +59,20 @@ class GoodReceiveController extends Controller
             ->make();
         }
         return view('good_receipt.list_gr');
+    }
+
+    public function ponumber($nomor_po){
+        if (request()->ajax()) {
+            
+            $query   = PurchaseDetail::with(['namepart','purchaseorder'])->where('nomor_po','=',$nomor_po)->get();
+            // return $query;
+            return DataTables::of($query)
+                ->addcolumn('nomor_po', function($kodenya){
+                    return 'PO/INV/'.$kodenya->nomor_po;
+                })
+                ->make();
+        }
+        return view('purchase_order.detail');
     }
 
     /**

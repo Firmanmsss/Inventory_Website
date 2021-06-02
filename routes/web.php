@@ -40,7 +40,7 @@ Route::resource('personinc', 'PersonInCController');
 Route::resource('locat', 'LocationController');
 
 Route::resource('purchaseorder', 'PurchaseOrderController');
-Route::get('/detail-po/{nomor_po}','PurchaseDetailController@index')->name('po-detail');
+Route::get('/detail-po/{nomor_po}','PurchaseOrderController@detail')->name('po-detail');
 
 Route::resource('buyer', 'BuyerController');
 
