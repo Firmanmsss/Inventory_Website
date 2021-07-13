@@ -54,7 +54,7 @@
                                 <option value="none" selected="" disabled="">Choose PO Number</option>
                                 {{-- <option value="2">PO/123/456</option> --}}
                                 @foreach ($puchaseorders as $po)
-                                <option value="{{ $po->id }}" {{ old('id_po') === ''. $po->id .'' ? 'selected' : '' }} >{{ 'PO/INV/'.$po->nomor_po }}</option>
+                                <option value="{{ $po->nomor_po }}" {{ old('id_po') === ''. $po->nomor_po .'' ? 'selected' : '' }} >{{ 'PO/INV/'.$po->nomor_po }}</option>
                                 @endforeach
                               </select>
                             </div>
@@ -126,34 +126,27 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="items">Items</label>
-                                <div class="table-responsive">
-                                    <table class="table" id="t_item">
-                                      <thead>
-                                        <tr>
-                                          <th>partname</th>
-                                          <th>price</th>
-                                          <th>qty</th>
-                                          <th>total</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody></tbody>
-                                      <tfoot>
-                                        <tr>
-                                          <th>partname</th>
-                                          <th>price</th>
-                                          <th>qty</th>
-                                          <th>total</th>
-                                        </tr>
-                                      </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                  
+                    <table class="table table-striped table-bordered" id="example">
+                      <thead>
+                        <tr>
+                          <th>Kode</th>
+                          <th>partname</th>
+                          <th>price</th>
+                          <th>qty</th>
+                          <th>total</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                      <tfoot>
+                        <tr>
+                          <th>Kode</th>
+                          <th>partname</th>
+                          <th>price</th>
+                          <th>qty</th>
+                          <th>total</th>
+                        </tr>
+                      </tfoot>
+                  </table>          
                 </div>
                 <div class="form-actions">
                   <button type="button" class="btn btn-warning mr-1" onclick="window.location.href='{{ route('goodreceipt.index') }}'">
@@ -197,55 +190,54 @@
 </script>
 
 <script>
-  $(document).ready(function(){
-    let count = 0;
-    // window.location.href='{{ route('po-detail') }}
-    $('#id_po').on('selected', function(){
 
-      $('#example').dataTable().fnDestroy();
+    function po_number(data={}){
+      $.ajax({
+        url: '/ponumber',
+        type: 'get',
+        data:data,
+        dataType: 'json',
+        beforeSend: function(){
 
-      $('#example').DataTable( {
-      processing: true,
-      serverSide: true,
-      ordering: true,
-      dom: 'Bfrtip',
-      buttons: [
-        {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
-        {extend:'csv'},
-        {extend: 'excel', title: 'Contoh File Excel Datatables'},
-        {extend: 'pdf', title:'Contoh File PDF Datatables'},
-        {extend:'print',title: 'Contoh Print Datatables'},
-        {
-          text: '<i class="ft-rotate-cw"></i>',
-          action: function (e, dt, node, config) {
-              dt.ajax.reload()
-          },
-          titleAttr: 'Refresh'
         },
-      ],
-      ajax: {
-          url: '{!! url()->current() !!}',
-      },
-      columns: [
-          { data: 'namepart.partname', name: 'namepart.partname' },
-          { data: 'price', name: 'price' },
-          { data: 'qty', name: 'qty' },
-          { data: 'total', name: 'total' },
-      ],
-      "order": [[ 0, 'desc' ], [ 1, 'desc']]
-      });
+        success:function(res){
+
+            console.log(res)
+
+            var v = res.result
+
+            let html = ''
+
+            html+= `
+                    <tr>
+                        <td  class="text-center" id="kode">${v.id}</td>
+                        <td  class="text-center" id="partname">${v.id_partname}</td>
+                        <td  class="text-center" id="price">${v.price}</td>
+                        <td  class="text-center" id="qty">${v.qty}</td>
+                        <td  class="text-center" id="total">${v.total}</td>
+                    </tr>
+                `
+                
+            $('#example tbody').html(html)
+            
+            
+        },
+        complete:function(){
+
+        }
+      })
+    }
+
+  $(document).ready(function(){
+      
+    po_number()
+
+    $('#id_po').on('change',function(){
+        let data = {
+            id_po:$('#id_po').val()
+        }
+        po_number(data)
     })
-  
-    $('#t_item').on('click','.btn-delete',function(){
-        $(this).closest('tr').remove()
-    })
-  
-    $('#t_item').on('click','#btn_delete_all',function(){
-        $('#validateform')[0].reset()
-        $('#t_item tbody tr').not(':first').remove()
-    })
-  
-    $('#validateform').validate();
-  })
-  </script>
+  });
+</script>
 @endpush

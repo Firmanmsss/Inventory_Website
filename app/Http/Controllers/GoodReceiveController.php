@@ -10,6 +10,7 @@ use App\Part_Name;
 use App\PersonInC;
 use App\PurchaseDetail;
 use App\PurchaseOrder;
+use Dotenv\Result\Result;
 use GoodReceiveSeeder;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -41,9 +42,6 @@ class GoodReceiveController extends Controller
                             <div class="dropdown-menu" aria-labelledby="action' .  $item->id . '">
                                 <a class="dropdown-item" href="' . route('gr-detail', $item->id) . '">
                                     Detail
-                                </a>
-                                <a class="dropdown-item" href="' . route('goodreceipt.edit', $item->id) . '">
-                                    Edit
                                 </a>
                                 <form action="' . route('goodreceipt.destroy', $item->id) . '" method="POST">
                                     ' . method_field('delete') . csrf_field() . '
@@ -89,6 +87,23 @@ class GoodReceiveController extends Controller
         $locat         = Location::all();
         $puchaseorders = PurchaseOrder::all();
         return view('good_receipt.create',compact('partname','customers','checker','personinc','locat','puchaseorders'));
+    }
+
+    public function po_number(Request $request){
+
+        $id_po = $request->id_po;
+
+        $po = PurchaseDetail::when($id_po, function($q) use($id_po){
+            $q->where('nomor_po','=', $id_po);
+        })
+        ->with(['namepart','purchaseorder'])
+        ->get();
+
+        return response()->json([
+            'status'  => true,
+            'message' => 'success',
+            'result'  => $po
+        ]);
     }
 
     /**

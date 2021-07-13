@@ -26,6 +26,7 @@ Route::resource('partnamectr', 'PartNameController');
 
 Route::resource('goodreceipt','GoodReceiveController');
 Route::get('/detail-gr/{id}','DetailGoodReceiveController@index')->name('gr-detail');
+Route::get('/ponumber','GoodReceiveController@po_number');
 
 Route::resource('customer', 'CustomerController');
 
