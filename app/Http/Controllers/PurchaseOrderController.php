@@ -117,7 +117,7 @@ class PurchaseOrderController extends Controller
 
         } catch (\Exception $e) {
             DB::rollback();
-            return redirect()->withInput()->with('error-msg', 'Gagal Simpan Pembelian');
+            return redirect()->withInput()->with('error-msg', 'Gagal Simpan PO');
         }
 
         try {

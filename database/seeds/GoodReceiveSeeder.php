@@ -13,16 +13,13 @@ class GoodReceiveSeeder extends Seeder
     public function run()
     {
         DB::table('good_receives')->insert([
-            'id_cust'     => '1',
-            'id_partname' => '1',
-            'tanggal'     => '2021-04-27',
-            'checker'     => 'firman',
-            'pic'         => 'fendi',
-            'qty_in'      => '50',
-            'location'    => 'A001',
-            'qty_loc'     => '10',
-            'created_at'  => \Carbon\Carbon::now(),
-            'updated_at'  => \Carbon\Carbon::now(),
+            'id_po'      => '1',
+            'id_cust'    => '1',
+            'nomor_po'   => 'PO/INV/101',
+            'checker'    => 'firman',
+            'pic'        => 'fendi',
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
         ]);
     }
 }

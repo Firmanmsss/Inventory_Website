@@ -13,6 +13,7 @@ use App\PurchaseOrder;
 use Dotenv\Result\Result;
 use GoodReceiveSeeder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class GoodReceiveController extends Controller
@@ -25,7 +26,7 @@ class GoodReceiveController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = GoodReceive::query();
+            $query = GoodReceive::with(['customer'])->select('good_receives.*');
             // dd($query->name);
             return DataTables::of($query)
             ->addColumn('action', function ($item) {
@@ -53,24 +54,13 @@ class GoodReceiveController extends Controller
                         </div>
                 </div>';
             })
+            ->editcolumn('created_at', function ($request) {
+                return $request->created_at->format('d M Y');
+            })
             ->rawColumns(['action'])
             ->make();
         }
         return view('good_receipt.list_gr');
-    }
-
-    public function ponumber($nomor_po){
-        if (request()->ajax()) {
-            
-            $query   = PurchaseDetail::with(['namepart','purchaseorder'])->where('nomor_po','=',$nomor_po)->get();
-            // return $query;
-            return DataTables::of($query)
-                ->addcolumn('nomor_po', function($kodenya){
-                    return 'PO/INV/'.$kodenya->nomor_po;
-                })
-                ->make();
-        }
-        return view('purchase_order.detail');
     }
 
     /**
@@ -93,17 +83,14 @@ class GoodReceiveController extends Controller
 
         $id_po = $request->id_po;
 
-        $po = PurchaseDetail::when($id_po, function($q) use($id_po){
+        $po['array'] = PurchaseDetail::when($id_po, function($q) use($id_po){
             $q->where('nomor_po','=', $id_po);
         })
         ->with(['namepart','purchaseorder'])
         ->get();
 
-        return response()->json([
-            'status'  => true,
-            'message' => 'success',
-            'result'  => $po
-        ]);
+        echo json_encode($po);
+        exit;
     }
 
     /**
@@ -114,7 +101,65 @@ class GoodReceiveController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'id_po'         => 'required',
+            'id_cust'       => 'required',
+            'po_supplier'   => 'required',
+            'pic'           => 'required',
+            'checker'       => 'required',
+            'location_name' => 'required',
+            'kode'          => 'required|array',
+            'kode.*'        => 'required',
+            'partname'      => 'required|array',
+            'partname.*'    => 'required',
+            'price'         => 'required|array',
+            'price.*'       => 'required',
+            'qty'           => 'required|array',
+            'qty.*'         => 'required',
+            'total'         => 'required|array',
+            'total.*'       => 'required',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $goodReceive = new GoodReceive;
+
+            $goodReceive->id_po       = $request->id_po;
+            $goodReceive->id_cust     = $request->id_cust;
+            $goodReceive->po_supplier = $request->po_supplier;
+            $goodReceive->checker     = $request->checker;
+            $goodReceive->pic         = $request->pic;
+
+            $goodReceive->save();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->withInput()->with('error-msg', 'Gagal Simpan Pembelian');
+        }
+
+        try {
+            // $purchaseD = new PurchaseDetail;
+            foreach ($request->product as $key => $val) {
+                $product_purchase[] = [
+                    'nomor_po'    => $goodReceive->nomor_po,
+                    'id_partname' => $request->product[$key],
+                    'price'       => $request->price[$key],
+                    'qty'         => $request->qty[$key],
+                    'total'       => $request->total[$key],
+                    'created_at'  => \Carbon\Carbon::now(),
+                    'updated_at'  => \Carbon\Carbon::now(),
+                ];
+            }
+            $goodReceive->details()->insert($product_purchase);
+        } catch (\Exception $e) {
+            DB::rollback();
+            // return $e->getMessage();
+
+            return redirect()->route('purchaseorder.create')->with('error-msg', 'Gagal Simpan Pembelian Produk');
+        }
+
+        DB::commit();
+        return redirect()->route('purchaseorder.index')->with('success-msg', 'Berhasil simpan Pembelian');
     }
 
     /**

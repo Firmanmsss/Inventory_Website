@@ -8,11 +8,7 @@ class GoodReceive extends Model
 {
     protected $table = 'good_receives';
 
-    protected $fillable = ['id_cust','id_partname','tanggal','checker','pic','qty_in','location','qty_loc'];
-
-    public function Mpartname(){
-        return $this->belongsTo(Part_Name::class,'id_partname','id');
-    }
+    protected $fillable = ['id_po','id_cust','nomor_po','checker','pic'];
 
     public function customer(){
         return $this->belongsTo(Customer::class,'id_cust','id');
@@ -26,7 +22,8 @@ class GoodReceive extends Model
         return $this->belongsTo(PersonInC::class,'pic','id');
     }
 
-    public function locat(){
-        return $this->belongsTo(Location::class,'location','id');
+    public function details()
+    {
+        return $this->hasMany(GRDetail::class, 'id_po', 'id_po');
     }
 }

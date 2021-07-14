@@ -129,15 +129,15 @@
                     <table class="table table-striped table-bordered" id="example">
                       <thead>
                         <tr>
-                          <th>Kode</th>
-                          <th>partname</th>
-                          <th>price</th>
-                          <th>qty</th>
-                          <th>total</th>
+                          <th>Product Code</th>
+                          <th>Product Name</th>
+                          <th>Price</th>
+                          <th>QTY</th>
+                          <th>Total</th>
                         </tr>
                       </thead>
                       <tbody></tbody>
-                      <tfoot>
+                      {{-- <tfoot>
                         <tr>
                           <th>Kode</th>
                           <th>partname</th>
@@ -145,7 +145,7 @@
                           <th>qty</th>
                           <th>total</th>
                         </tr>
-                      </tfoot>
+                      </tfoot> --}}
                   </table>          
                 </div>
                 <div class="form-actions">
@@ -203,22 +203,29 @@
         success:function(res){
 
             console.log(res)
+            $('#example tbody').empty()
+            var len = res['array'].length
 
-            var v = res.result
-
+            for(var i=0; i<len; i++){
+              var id = res['array'][i].id_partname;
+              var partname = res['array'][i].namepart.partname;
+              var price = res['array'][i].price;
+              var qty = res['array'][i].qty;
+              var total = res['array'][i].total;
+              
             let html = ''
 
-            html+= `
-                    <tr>
-                        <td  class="text-center" id="kode">${v.id}</td>
-                        <td  class="text-center" id="partname">${v.id_partname}</td>
-                        <td  class="text-center" id="price">${v.price}</td>
-                        <td  class="text-center" id="qty">${v.qty}</td>
-                        <td  class="text-center" id="total">${v.total}</td>
-                    </tr>
-                `
+            html= "<tr>"+
+                        "<td  class='text-center' id='kode' name='kode'>" + id + "</td>" +
+                        "<td  class='text-center' id='partname' name='partname'>" + partname + "</td>" +
+                        "<td  class='text-center' id='price' name='price'>" + price + "</td>" +
+                        "<td  class='text-center' id='qty' name='qty'>" + qty + "</td>" +
+                        "<td  class='text-center' id='total' name='total'>" + total + "</td>" +
+                    "</tr>";
                 
-            $('#example tbody').html(html)
+            $('#example tbody').append(html)
+            }
+            
             
             
         },
@@ -230,8 +237,6 @@
 
   $(document).ready(function(){
       
-    po_number()
-
     $('#id_po').on('change',function(){
         let data = {
             id_po:$('#id_po').val()

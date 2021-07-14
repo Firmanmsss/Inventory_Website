@@ -35,18 +35,20 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
               <table class="table table-striped table-bordered file-export" id="example">
                 <thead>
                   <tr>
-                    <th>Part Name</th>
-                    <th>Unit</th>
-                    <th>Stock</th>
+                    <th>Customer Name</th>
+                    <th>Tanggal</th>
+                    <th>Checker</th>
+                    <th>PIC</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody></tbody>
                 <tfoot>
                   <tr>
-                    <th>Part Name</th>
-                    <th>Unit</th>
-                    <th>Stock</th>
+                    <th>Customer Name</th>
+                    <th>Tanggal</th>
+                    <th>Checker</th>
+                    <th>PIC</th>
                     <th>Action</th>
                   </tr>
                 </tfoot>
@@ -85,7 +87,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
         dom: 'Bfrtip',
         buttons: [
           {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
-          {extend:'csv'},
+          {extend: 'csv'},
           {extend: 'excel', title: 'Contoh File Excel Datatables'},
           {extend: 'pdf', title:'Contoh File PDF Datatables'},
           {extend:'print',title: 'Contoh Print Datatables'},
@@ -101,9 +103,10 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
             url: '{!! url()->current() !!}',
         },
         columns: [
-            { data: 'checker', name: 'checker'},
-            { data: 'qty_in', name: 'qty_in' },
-            { data: 'location', name: 'location' },
+            { data: 'customer.name', name: 'customer.name'},
+            { data: 'created_at', name: 'created_at' },
+            { data: 'checker', name: 'checker' },
+            { data: 'pic', name: 'pic' },
             {
                 data: 'action',
                 name: 'action',
