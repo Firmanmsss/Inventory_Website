@@ -137,15 +137,6 @@
                         </tr>
                       </thead>
                       <tbody></tbody>
-                      {{-- <tfoot>
-                        <tr>
-                          <th>Kode</th>
-                          <th>partname</th>
-                          <th>price</th>
-                          <th>qty</th>
-                          <th>total</th>
-                        </tr>
-                      </tfoot> --}}
                   </table>          
                 </div>
                 <div class="form-actions">

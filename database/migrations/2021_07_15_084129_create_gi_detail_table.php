@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGoodIssuesTable extends Migration
+class CreateGiDetailTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateGoodIssuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('good_issues', function (Blueprint $table) {
+        Schema::create('gi_detail', function (Blueprint $table) {
             $table->id();
+            $table->string('id_gi');
             $table->string('id_buyer');
-            $table->string('id_cust');
-            $table->string('no_po_buyer')->nullable();
-            $table->string('checker');
-            $table->string('pic');
-            $table->string('location');
-            $table->text('destination');
+            $table->string('id_partname');
+            $table->double('price', 10, 2);
+            $table->double('qty', 10, 2);
+            $table->double('total', 10, 2);
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ class CreateGoodIssuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('good_issues');
+        Schema::dropIfExists('gi_detail');
     }
 }

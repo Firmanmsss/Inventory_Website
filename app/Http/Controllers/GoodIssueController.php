@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Buyer;
 use App\Checker;
 use App\Customer;
 use App\GoodIssue;
@@ -9,6 +10,7 @@ use App\Location;
 use App\Part_Name;
 use App\PersonInC;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class GoodIssueController extends Controller
@@ -62,12 +64,13 @@ class GoodIssueController extends Controller
      */
     public function create()
     {
-        $customers     = Customer::all();
-        $checker       = Checker::all();
-        $personinc     = PersonInC::all();
-        $partname      = Part_Name::all();
-        $locat         = Location::all();
-        return view('good_issue.create',compact('partname','customers','checker','personinc','locat'));
+        $customers = Customer::all();
+        $checker   = Checker::all();
+        $personinc = PersonInC::all();
+        $partname  = Part_Name::all();
+        $locat     = Location::all();
+        $buyer     = Buyer::all();
+        return view('good_issue.create',compact('partname','customers','checker','personinc','locat','buyer'));
     }
 
     /**
@@ -78,7 +81,54 @@ class GoodIssueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nomor_po'  => 'required|unique:purchase_orders,nomor_po',
+            'product'   => 'required|array',
+            'product.*' => 'required',
+            'price'     => 'required|array',
+            'price.*'   => 'required|numeric',
+            'qty'       => 'required|array',
+            'qty.*'     => 'required|numeric',
+            'total'     => 'required|array',
+            'total.*'   => 'required|numeric',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $goodIss = new GoodIssue;
+
+            $goodIss->nomor_po = $request->nomor_po;
+
+            $goodIss->save();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->withInput()->with('error-msg', 'Gagal Simpan PO');
+        }
+
+        try {
+            // $purchaseD = new PurchaseDetail;
+            foreach ($request->product as $key => $val) {
+                $product_purchase[] = [
+                    'nomor_po'    => $goodIss->nomor_po,
+                    'id_partname' => $request->product[$key],
+                    'price'       => $request->price[$key],
+                    'qty'         => $request->qty[$key],
+                    'total'       => $request->total[$key],
+                    'created_at'  => \Carbon\Carbon::now(),
+                    'updated_at'  => \Carbon\Carbon::now(),
+                ];
+            }
+            $goodIss->details()->insert($product_purchase);
+        } catch (\Exception $e) {
+            DB::rollback();
+            // return $e->getMessage();
+
+            return redirect()->route('good_issue.create')->with('error-msg', 'Gagal Simpan Good Issue');
+        }
+
+        DB::commit();
+        return redirect()->route('good_issue.index')->with('success-msg', 'Berhasil Simpan Good Issue');
     }
 
     /**

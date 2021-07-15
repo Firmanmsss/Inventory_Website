@@ -33,7 +33,27 @@ type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           </div>
           <div class="card-content collapse show">
             <div class="card-body card-dashboard">
-              {{-- .... --}}
+              <table class="table table-striped table-bordered file-export" id="example">
+                    <thead>
+                      <tr>
+                        <th>PO Number</th>
+                        <th>Partname</th>
+                        <th>Price</th>
+                        <th>QTY</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                      <tr>
+                        <th>PO Number</th>
+                        <th>Partname</th>
+                        <th>Price</th>
+                        <th>QTY</th>
+                        <th>Total</th>
+                      </tr>
+                    </tfoot>
+                </table>
             </div>
           </div>
         </div>
@@ -59,7 +79,40 @@ type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
 <script>
     $(document).ready(function(){
-        
+        $('#example').dataTable().fnDestroy();
+
+        $('#example').DataTable( {
+        processing: true,
+        serverSide: true,
+        ordering: true,
+        dom: 'Bfrtip',
+        buttons: [
+          {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
+          {extend:'csv'},
+          {extend: 'excel', title: 'Contoh File Excel Datatables'},
+          {extend: 'pdf', title:'Contoh File PDF Datatables'},
+          {extend:'print',title: 'Contoh Print Datatables'},
+          {
+            text: '<i class="ft-rotate-cw"></i>',
+            action: function (e, dt, node, config) {
+                dt.ajax.reload()
+            },
+            titleAttr: 'Refresh'
+          },
+        ],
+        ajax: {
+            url: '{!! url()->current() !!}',
+        },
+        columns: [
+            { data: 'nomor_po', name: 'nomor_po'},
+            { data: 'namepart.partname', name: 'namepart.partname' },
+            { data: 'price', name: 'price' },
+            { data: 'qty', name: 'qty' },
+            { data: 'total', name: 'total' },
+        ],
+        "order": [[ 0, 'desc' ], [ 1, 'desc']]
+    });
     });
 </script>
+
 @endpush

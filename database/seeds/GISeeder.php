@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class GoodIssueSeeder extends Seeder
+class GISeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,14 +12,13 @@ class GoodIssueSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('good_issues')->insert([
+        DB::table('gi_detail')->insert([
+            'id_gi'       => '1',
             'id_buyer'    => '1',
-            'id_cust'     => '1',
-            'no_po_buyer' => 'PO123456789',
-            'checker'     => 'firman',
-            'pic'         => 'feri',
-            'location'    => 'A001',
-            'destination' => 'Toko Jakarta, JakTim',
+            'id_partname' => 'PO123456789',
+            'price'       => '25000',
+            'qty'         => '4',
+            'total'       => '100000',
             'created_at'  => \Carbon\Carbon::now(),
             'updated_at'  => \Carbon\Carbon::now(),
         ]);

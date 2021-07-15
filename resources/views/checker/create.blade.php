@@ -29,7 +29,19 @@
           </div>
           <div class="card-content collapse show">
             <div class="card-body">
-              <form class="form" id="validateform" action="{{ route('checker.store') }}" method="POST">
+              @if ($errors->any())
+                <div class="alert alert-danger alert-notif" id="alert_error">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                    <h3 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Failed</h3>
+                    
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+              @endif
+              <form class="form" action="{{ route('checker.store') }}" method="POST">
                 @csrf
                 <div class="form-body">
                   <h4 class="form-section"><i class="ft-user"></i> Data Checker</h4>
@@ -75,8 +87,8 @@
   //   }
   // }
 
-$(document).ready(function(){
-  $('#validateform').validate();
-})
+// $(document).ready(function(){
+//   $('#validateform').validate();
+// })
 </script>
 @endpush

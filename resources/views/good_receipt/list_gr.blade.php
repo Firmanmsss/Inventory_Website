@@ -35,6 +35,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
               <table class="table table-striped table-bordered file-export" id="example">
                 <thead>
                   <tr>
+                    <th>Kode PO</th>
                     <th>Customer Name</th>
                     <th>Tanggal</th>
                     <th>Checker</th>
@@ -45,6 +46,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
                 <tbody></tbody>
                 <tfoot>
                   <tr>
+                    <th>Kode PO</th>
                     <th>Customer Name</th>
                     <th>Tanggal</th>
                     <th>Checker</th>
@@ -103,10 +105,11 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
             url: '{!! url()->current() !!}',
         },
         columns: [
+            { data: 'id_po', name: 'id_po'},
             { data: 'customer.name', name: 'customer.name'},
             { data: 'created_at', name: 'created_at' },
-            { data: 'checker', name: 'checker' },
-            { data: 'pic', name: 'pic' },
+            { data: 'checker.name', name: 'checker.name' },
+            { data: 'personinc.name', name: 'personinc.name' },
             {
                 data: 'action',
                 name: 'action',
@@ -116,6 +119,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
         ],
         "order": [[ 0, 'desc' ], [ 1, 'desc']]
     });
+
     });
 </script>
 @endpush

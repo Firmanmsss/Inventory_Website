@@ -139,11 +139,11 @@ class PurchaseOrderController extends Controller
             DB::rollback();
             // return $e->getMessage();
 
-            return redirect()->route('purchaseorder.create')->with('error-msg', 'Gagal Simpan Pembelian Produk');
+            return redirect()->route('purchaseorder.create')->with('error-msg', 'Gagal Simpan PO');
         }
 
         DB::commit();
-        return redirect()->route('purchaseorder.index')->with('success-msg', 'Berhasil simpan Pembelian');
+        return redirect()->route('purchaseorder.index')->with('success-msg', 'Berhasil Simpan PO');
     }
 
     /**

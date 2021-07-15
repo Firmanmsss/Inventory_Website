@@ -47,6 +47,20 @@
                 <div class="form-body">
                   <h4 class="form-section"><i class="ft-user"></i> Data Good Issue</h4>
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="id_buyer">Buyer</label>
+                              <select name="id_buyer" id="id_buyer" required class="select2 form-control">
+                                <option value="none" selected="" disabled="">Choose Buyer</option>
+                                {{-- <option value="2">Firman</option> --}}
+                                @foreach ($buyer as $buy)
+                                <option value="{{ $buy->id }}" {{ old('id_buyer') === ''. $buy->id .'' ? 'selected' : '' }}>{{ $buy->name }}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="po_buyer">PO Buyer Number </label>
@@ -117,7 +131,6 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="items">Items</label>
                                 <div class="table-responsive">
                                     <table class="table" id="t_item">
                                         <thead>
@@ -132,7 +145,7 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <select name="partname[0]" id="partname_0" required class="select2 form-control">
+                                                    <select name="partname[0]" id="partname_0" required class="form-control">
                                                       <option value="none" selected="" disabled="">Choose Partname</option>
                                                       {{-- <option value="2">Kenzo Paris</option> --}}
                                                       @foreach ($partname as $pn)
