@@ -97,7 +97,7 @@
             </li>
           </ul>
         </li>
-        <li class=" nav-item"><a href="#"><i class="la la-archive"></i><span class="menu-title" data-i18n="nav.dash.main">Shipping</span></a>
+        <li class=" nav-item"><a href="#"><i class="la la-archive"></i><span class="menu-title" data-i18n="nav.dash.main">Adjustment</span></a>
         </li>
       </ul>
     </div>

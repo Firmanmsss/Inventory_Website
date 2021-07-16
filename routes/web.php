@@ -25,7 +25,6 @@ Route::get('/dashboard', 'HomeController@index')->name('home');
 Route::resource('partnamectr', 'PartNameController');
 
 Route::resource('goodreceipt','GoodReceiveController');
-// Route::get('/detail-gr/{id_po}','DetailGoodReceiveController@index')->name('gr-detail');
 Route::get('/ponumber','GoodReceiveController@po_number');
 Route::get('/grdetail/{id_po}', 'GoodReceiveController@detail')->name('grdetail');
 
@@ -47,3 +46,4 @@ Route::get('/detail-po/{nomor_po}','PurchaseOrderController@detail')->name('po-d
 Route::resource('buyer', 'BuyerController');
 
 Route::resource('goodissue', 'GoodIssueController');
+Route::get('/gidetail/{id_gi}', 'GoodIssueController@detail')->name('gidetail');

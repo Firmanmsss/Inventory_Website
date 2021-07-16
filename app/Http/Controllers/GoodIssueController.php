@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Buyer;
 use App\Checker;
 use App\Customer;
+use App\GIDetail;
 use App\GoodIssue;
 use App\Location;
 use App\Part_Name;
@@ -23,7 +24,7 @@ class GoodIssueController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = GoodIssue::query();
+            $query = GoodIssue::with(['customer','buyer','checker','personinc','locat'])->select('good_issues.*');
             // dd($query->name);
             return DataTables::of($query)
             ->addColumn('action', function ($item) {
@@ -38,8 +39,8 @@ class GoodIssueController extends Controller
                                     Action
                             </button>
                             <div class="dropdown-menu" aria-labelledby="action' .  $item->id . '">
-                                <a class="dropdown-item" href="' . route('goodissue.edit', $item->id) . '">
-                                    Edit
+                                <a class="dropdown-item" href="' . route('gidetail', $item->id) . '">
+                                    Detail
                                 </a>
                                 <form action="' . route('goodissue.destroy', $item->id) . '" method="POST">
                                     ' . method_field('delete') . csrf_field() . '
@@ -82,15 +83,21 @@ class GoodIssueController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nomor_po'  => 'required|unique:purchase_orders,nomor_po',
-            'product'   => 'required|array',
-            'product.*' => 'required',
-            'price'     => 'required|array',
-            'price.*'   => 'required|numeric',
-            'qty'       => 'required|array',
-            'qty.*'     => 'required|numeric',
-            'total'     => 'required|array',
-            'total.*'   => 'required|numeric',
+            'id_buyer'      => 'required',
+            'po_buyer'      => 'required',
+            'pic'           => 'required',
+            'checker'       => 'required',
+            'id_cust'       => 'required',
+            'location_name' => 'required',
+            'destination'   => 'required',
+            'partname'      => 'required|array',
+            'partname.*'    => 'required',
+            'price'         => 'required|array',
+            'price.*'       => 'required|numeric',
+            'qty'           => 'required|array',
+            'qty.*'         => 'required|numeric',
+            'total'         => 'required|array',
+            'total.*'       => 'required|numeric',
         ]);
 
         DB::beginTransaction();
@@ -98,7 +105,13 @@ class GoodIssueController extends Controller
         try {
             $goodIss = new GoodIssue;
 
-            $goodIss->nomor_po = $request->nomor_po;
+            $goodIss->id_buyer    = $request->id_buyer;
+            $goodIss->id_cust     = $request->id_cust;
+            $goodIss->no_po_buyer = $request->po_buyer;
+            $goodIss->checker     = $request->checker;
+            $goodIss->pic         = $request->pic;
+            $goodIss->location    = $request->location_name;
+            $goodIss->destination = $request->destination;
 
             $goodIss->save();
         } catch (\Exception $e) {
@@ -108,10 +121,11 @@ class GoodIssueController extends Controller
 
         try {
             // $purchaseD = new PurchaseDetail;
-            foreach ($request->product as $key => $val) {
-                $product_purchase[] = [
-                    'nomor_po'    => $goodIss->nomor_po,
-                    'id_partname' => $request->product[$key],
+            foreach ($request->partname as $key => $val) {
+                $detail_gi[] = [
+                    'id_gi'       => $goodIss->id,
+                    'id_buyer'    => $goodIss->id_buyer,
+                    'id_partname' => $request->partname[$key],
                     'price'       => $request->price[$key],
                     'qty'         => $request->qty[$key],
                     'total'       => $request->total[$key],
@@ -119,16 +133,31 @@ class GoodIssueController extends Controller
                     'updated_at'  => \Carbon\Carbon::now(),
                 ];
             }
-            $goodIss->details()->insert($product_purchase);
+            $goodIss->details()->insert($detail_gi);
         } catch (\Exception $e) {
             DB::rollback();
             // return $e->getMessage();
 
-            return redirect()->route('good_issue.create')->with('error-msg', 'Gagal Simpan Good Issue');
+            return redirect()->route('goodissue.create')->with('error-msg', 'Gagal Simpan Good Issue');
         }
 
         DB::commit();
-        return redirect()->route('good_issue.index')->with('success-msg', 'Berhasil Simpan Good Issue');
+        return redirect()->route('goodissue.index')->with('success-msg', 'Berhasil Simpan Good Issue');
+    }
+
+    public function detail($id_gi)
+    {
+        if (request()->ajax()) {
+
+            $query   = GIDetail::with(['partname', 'buyer'])->where('id_gi', '=', $id_gi)->get();
+            // return $query;
+            return DataTables::of($query)
+                // ->addcolumn('id_gi', function ($kodenya) {
+                //     return 'PO/INV/' . $kodenya->nomor_po;
+                // })
+                ->make();
+        }
+        return view('good_issue.detail');
     }
 
     /**
@@ -175,6 +204,7 @@ class GoodIssueController extends Controller
     {
         $item = GoodIssue::findOrFail($id);
         $item->delete();
+        $item->details()->delete($id);
 
         return redirect()->route('goodissue.index');
     }

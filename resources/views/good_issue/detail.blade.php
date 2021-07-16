@@ -1,19 +1,20 @@
 {{-- extend ke indexnya --}}
-@extends('layouts.master')
+@extends('layouts.masterdetail_gi')
 
 <!-- isi bagian judul halaman -->
 @section('title', 'Good Issue')
 @section('breadcumb')
 
-<li class="breadcrumb-item active">List Good Issue
+<li class="breadcrumb-item active">Detail Good Issue
 </li>
 
 @endsection
 
 @section('btn_right')
 <button class="btn btn-success btn-glow px-2"
-type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.location.href='{{ route('goodissue.create') }}'" aria-expanded="false">Transaksi</button>
+type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tambah</button>
 @endsection
+
 <!-- isi bagian konten -->
 @section('contents')
 
@@ -22,7 +23,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title">List Good Issue</h4>
+            <h4 class="card-title">Detail Good Issue</h4>
             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
             <div class="heading-elements">
               <ul class="list-inline mb-0">
@@ -32,31 +33,27 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
           </div>
           <div class="card-content collapse show">
             <div class="card-body card-dashboard">
-              <table class="table table-striped table-bordered file-export" id="example">
-                <thead>
-                  <tr>
-                    <th>Buyer</th>
-                    <th>Buyer PO Number</th>
-                    <th>Checker</th>
-                    <th>Customer</th>
-                    <th>Location</th>
-                    <th>Destination</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-                <tfoot>
-                  <tr>
-                    <th>Buyer</th>
-                    <th>Buyer PO Number</th>
-                    <th>Checker</th>
-                    <th>Customer</th>
-                    <th>Location</th>
-                    <th>Destination</th>
-                    <th>Action</th>
-                  </tr>
-                </tfoot>
-              </table>
+                <table class="table table-striped table-bordered file-export" id="example">
+                    <thead>
+                      <tr>
+                        <th>Order Code</th>
+                        <th>Partname</th>
+                        <th>Price</th>
+                        <th>QTY</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                      <tr>
+                        <th>Order Code</th>
+                        <th>Partname</th>
+                        <th>Price</th>
+                        <th>QTY</th>
+                        <th>Total</th>
+                      </tr>
+                    </tfoot>
+                </table>
             </div>
           </div>
         </div>
@@ -107,18 +104,11 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
             url: '{!! url()->current() !!}',
         },
         columns: [
-            { data: 'buyer.name', name: 'buyer.name'},
-            { data: 'no_po_buyer', name: 'no_po_buyer' },
-            { data: 'checker.name', name: 'checker.name' },
-            { data: 'customer.name', name: 'customer.name' },
-            { data: 'locat.location_name', name: 'locat.location_name' },
-            { data: 'destination', name: 'destination' },
-            {
-                data: 'action',
-                name: 'action',
-                orderable: false,
-                searchable: false
-            },
+            { data: 'id_gi', name: 'id_gi'},
+            { data: 'partname.partname', name: 'namepart.partname' },
+            { data: 'price', name: 'price' },
+            { data: 'qty', name: 'qty' },
+            { data: 'total', name: 'total' },
         ],
         "order": [[ 0, 'desc' ], [ 1, 'desc']]
     });

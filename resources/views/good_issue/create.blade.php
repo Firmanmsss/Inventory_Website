@@ -42,7 +42,7 @@
                     </ul>
                 </div>
             @endif
-              <form class="form" id="validateform" action="{{ route('goodissue.store') }}" method="POST">
+              <form class="form" action="{{ route('goodissue.store') }}" method="POST">
                 @csrf
                 <div class="form-body">
                   <h4 class="form-section"><i class="ft-user"></i> Data Good Issue</h4>
@@ -124,7 +124,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="destination">Destination Address </label>
-                                <textarea name="destination" id="summernote" class="form-control" placeholder="Destination Address">{{ old("destination") }}</textarea>
+                                <textarea name="destination" id="destination" class="form-control" placeholder="Destination Address">{{ old("destination") }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -237,10 +237,10 @@
               </select>
             </td>
             <td>
-                <input type="number" required min="0" class="form-control" value="{{ old('price') }}" placeholder="Price" name="price[${count}]" id="price_${count}">
+                <input type="number" required min="0" class="form-control" onkeyup="TotalPurchase(${count})" value="{{ old('price') }}" placeholder="Price" name="price[${count}]" id="price_${count}">
             </td>
             <td>
-                <input type="number" required min="0" class="form-control" value="{{ old('qty') }}" placeholder="Qty" name="qty[${count}]" id="qty_${count}">
+                <input type="number" required min="0" class="form-control" onkeyup="TotalPurchase(${count})" value="{{ old('qty') }}" placeholder="Qty" name="qty[${count}]" id="qty_${count}">
             </td>
             <td>
                 <input type="number" required min="0" class="form-control" readonly value="{{ old('total') }}" name="total[${count}]" id="total_${count}">
