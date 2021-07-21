@@ -52,6 +52,9 @@ class GoodIssueController extends Controller
                         </div>
                 </div>';
             })
+            ->editcolumn('created_at', function ($request) {
+                return $request->created_at->format('d M Y');
+            })
             ->rawColumns(['action'])
             ->make();
         }
@@ -84,7 +87,7 @@ class GoodIssueController extends Controller
     {
         $this->validate($request, [
             'id_buyer'      => 'required',
-            'po_buyer'      => 'required',
+            // 'po_buyer'      => 'required', *Boleh kosong*
             'pic'           => 'required',
             'checker'       => 'required',
             'id_cust'       => 'required',

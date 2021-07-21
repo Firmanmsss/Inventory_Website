@@ -83,9 +83,9 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
         buttons: [
           {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
           {extend:'csv'},
-          {extend: 'excel', title: 'Contoh File Excel Datatables'},
-          {extend: 'pdf', title:'Contoh File PDF Datatables'},
-          {extend:'print',title: 'Contoh Print Datatables'},
+          {extend: 'excel', title: 'Contoh File Excel List PIC'},
+          {extend: 'pdf', title:'Contoh File PDF List PIC'},
+          {extend:'print',title: 'Contoh Print List PIC'},
           {
             text: '<i class="ft-rotate-cw"></i>',
             action: function (e, dt, node, config) {

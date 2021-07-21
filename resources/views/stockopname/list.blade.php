@@ -1,20 +1,19 @@
 {{-- extend ke indexnya --}}
-@extends('layouts.master_detail_po')
+@extends('layouts.master')
 
 <!-- isi bagian judul halaman -->
-@section('title', 'Purchase Order')
+@section('title', 'Stock Opname')
 @section('breadcumb')
 
-<li class="breadcrumb-item active">Detail Purchase Order
+<li class="breadcrumb-item active">List Stock Opname
 </li>
 
 @endsection
 
 @section('btn_right')
 <button class="btn btn-success btn-glow px-2"
-type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tambah</button>
+type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.location.href='{{ route('stockopname.create') }}'" aria-expanded="false">Input New</button>
 @endsection
-
 <!-- isi bagian konten -->
 @section('contents')
 
@@ -23,7 +22,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title">Detail Purchase Order</h4>
+            <h4 class="card-title">List Stock Opname</h4>
             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
             <div class="heading-elements">
               <ul class="list-inline mb-0">
@@ -33,27 +32,23 @@ type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           </div>
           <div class="card-content collapse show">
             <div class="card-body card-dashboard">
-                <table class="table table-striped table-bordered file-export" id="example">
-                    <thead>
-                      <tr>
-                        <th>Kode</th>
-                        <th>partname</th>
-                        <th>price</th>
-                        <th>qty</th>
-                        <th>total</th>
-                      </tr>
-                    </thead>
-                    <tbody></tbody>
-                    <tfoot>
-                      <tr>
-                        <th>Kode</th>
-                        <th>partname</th>
-                        <th>price</th>
-                        <th>qty</th>
-                        <th>total</th>
-                      </tr>
-                    </tfoot>
-                </table>
+              <table class="table table-striped table-bordered file-export" id="example">
+                <thead>
+                  <tr>
+                    <th>SO Code</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                  <tr>
+                    <th>SO Code</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                  </tr>
+                </tfoot>
+              </table>
             </div>
           </div>
         </div>
@@ -88,10 +83,10 @@ type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         dom: 'Bfrtip',
         buttons: [
           {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
-          {extend:'csv'},
-          {extend: 'excel', title: 'Contoh File Excel Detail Purchase Order'},
-          {extend: 'pdf', title:'Contoh File PDF Detail Purchase Order'},
-          {extend:'print',title: 'Contoh Print Detail Purchase Order'},
+          {extend: 'csv'},
+          {extend: 'excel', title: 'Contoh File Excel List Stock Opname'},
+          {extend: 'pdf', title:'Contoh File PDF List Stock Opname'},
+          {extend:'print',title: 'Contoh Print List Stock Opname'},
           {
             text: '<i class="ft-rotate-cw"></i>',
             action: function (e, dt, node, config) {
@@ -104,14 +99,18 @@ type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             url: '{!! url()->current() !!}',
         },
         columns: [
-            { data: 'nomor_po', name: 'nomor_po'},
-            { data: 'namepart.partname', name: 'namepart.partname' },
-            { data: 'price', name: 'price' },
-            { data: 'qty', name: 'qty' },
-            { data: 'total', name: 'total' },
+            // { data: 'id_po', name: 'id_po'},
+            // { data: 'created_at', name: 'created_at' },
+            // {
+            //     data: 'action',
+            //     name: 'action',
+            //     orderable: false,
+            //     searchable: false
+            // },
         ],
         "order": [[ 0, 'desc' ], [ 1, 'desc']]
     });
+
     });
 </script>
 @endpush

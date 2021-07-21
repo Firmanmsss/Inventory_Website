@@ -1,5 +1,6 @@
 <?php
 
+use App\StockOpname;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -47,3 +48,5 @@ Route::resource('buyer', 'BuyerController');
 
 Route::resource('goodissue', 'GoodIssueController');
 Route::get('/gidetail/{id_gi}', 'GoodIssueController@detail')->name('gidetail');
+
+Route::resource('stockopname', 'StockOpnameController');

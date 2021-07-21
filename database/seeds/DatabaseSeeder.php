@@ -32,5 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BuyerSeeder::class);
         $this->call(GRDetailSeeder::class);
         $this->call(GISeeder::class);
+        $this->call(StockOpnameSeeder::class);
+        $this->call(StockODetailSeeder::class);
     }
 }

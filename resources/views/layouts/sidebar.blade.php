@@ -98,6 +98,40 @@
           </ul>
         </li>
         <li class=" nav-item"><a href="#"><i class="la la-archive"></i><span class="menu-title" data-i18n="nav.dash.main">Adjustment</span></a>
+          <ul class="menu-content">
+            <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.main">Transfer In</a>
+              <ul class="menu-content">
+                <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.classic">Transaction</a>
+                </li>
+                <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.top_icon">Record</a>
+                </li>
+              </ul>
+            </li>
+            <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.main">Transfer Out</a>
+              <ul class="menu-content">
+                <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.classic">Transaction</a>
+                </li>
+                <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.top_icon">Record</a>
+                </li>
+              </ul>
+            </li>
+            <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.main">Return</a>
+              <ul class="menu-content">
+                <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.classic">Transaction</a>
+                </li>
+                <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.top_icon">Record</a>
+                </li>
+              </ul>
+            </li>
+            <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.main">Stock Opname</a>
+              <ul class="menu-content">
+                <li><a class="menu-item" href="{{ route('stockopname.index') }}" data-i18n="nav.templates.horz.classic">Data</a>
+                </li>
+                <li><a class="menu-item" href="#" data-i18n="nav.templates.horz.top_icon">Input New</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </li>
       </ul>
     </div>

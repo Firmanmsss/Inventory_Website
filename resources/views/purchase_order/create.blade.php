@@ -219,5 +219,5 @@
   
     $('#validateform').validate();
   })
-  </script>
+</script>
 @endpush

@@ -89,9 +89,9 @@ type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         buttons: [
           {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
           {extend:'csv'},
-          {extend: 'excel', title: 'Contoh File Excel Datatables'},
-          {extend: 'pdf', title:'Contoh File PDF Datatables'},
-          {extend:'print',title: 'Contoh Print Datatables'},
+          {extend: 'excel', title: 'Contoh File Excel Detail Good Issue'},
+          {extend: 'pdf', title:'Contoh File PDF Detail Good Issue'},
+          {extend:'print',title: 'Contoh Print Detail Good Issue'},
           {
             text: '<i class="ft-rotate-cw"></i>',
             action: function (e, dt, node, config) {

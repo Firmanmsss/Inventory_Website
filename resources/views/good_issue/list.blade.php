@@ -41,6 +41,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
                     <th>Customer</th>
                     <th>Location</th>
                     <th>Destination</th>
+                    <th>Date</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -53,6 +54,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
                     <th>Customer</th>
                     <th>Location</th>
                     <th>Destination</th>
+                    <th>Date</th>
                     <th>Action</th>
                   </tr>
                 </tfoot>
@@ -92,9 +94,9 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
         buttons: [
           {extend: 'colvis', postfixButtons: [ 'colvisRestore' ] },
           {extend:'csv'},
-          {extend: 'excel', title: 'Contoh File Excel Datatables'},
-          {extend: 'pdf', title:'Contoh File PDF Datatables'},
-          {extend:'print',title: 'Contoh Print Datatables'},
+          {extend: 'excel', title: 'Contoh File Excel List Good Issue'},
+          {extend: 'pdf', title:'Contoh File PDF List Good Issue'},
+          {extend:'print',title: 'Contoh Print List Good Issue'},
           {
             text: '<i class="ft-rotate-cw"></i>',
             action: function (e, dt, node, config) {
@@ -113,6 +115,7 @@ type="button" data-toggle="dropdown" aria-haspopup="true" onclick="window.locati
             { data: 'customer.name', name: 'customer.name' },
             { data: 'locat.location_name', name: 'locat.location_name' },
             { data: 'destination', name: 'destination' },
+            { data: 'created_at', name: 'created_at' },
             {
                 data: 'action',
                 name: 'action',
